@@ -16,31 +16,37 @@ async def on_ready():
     print(client.user.id)
     print("Let's make the world smile!")
     print('------------------')
-
     await client.change_presence(game=discord.Game(name='smiling :)'))
-
-@client.event
-async def on_server_join(server):
-    await client.send_message(server.default_channel, "It's me, " + client.user.mention + "!")
 
 @client.event
 async def on_message_delete(message):
     if message.author == client.user:
         await client.send_message(message.channel, "Why are you deleting my messages :(")
     else:
-        await client.send_message(message.channel, "A message that said \"" + message.content + "\" got deleted!")
+        await client.send_message(message.channel, "A message got deleted!  Here are its contents: \n" + message.content)
+
+
+@client.event
+async def on_message_edit(before, after):
+    if before.author == client.user:
+        return
+    else:
+        msg = "A message by " + str(before.author) + " has been edited. \nBefore: *" + before.content + "*\nAfter: *" + after.content + "*"
+        await client.send_message(before.channel, msg)
+
 
 @client.event
 async def on_member_join(member):
     await client.send_message(member.server.default_channel, "Welcome, " + member.mention)
+
 
 @client.event
 async def on_message(message): #all commands
     simplecommands = {
         "!test": "Yep",
         "!ben": "goddamn ape",
-        "!botinfo": "It's me, " + client.user.mention + "!\n" + client.user.id + "\n" + client.user.discriminator,
-        "!channelid": message.channel.id + "",
+        "!botinfo": "It's me, " + client.user.mention + "!\n" + str(client.user.id) + "\n" + str(client.user.discriminator),
+        "!channelid": str(message.channel.id),
         "!connectioninfo": str(client.ws),
         "!elijah": "yurilord gigachad",
         "!hello": "Hi " + message.author.mention + "! How are you?",
@@ -53,7 +59,7 @@ async def on_message(message): #all commands
     }
 
     regularwords = {
-        "owo": "what's this?",
+        "owo": "owo what's this?",
         "ben": "yo did someone say ben fuck that guy",
         "kokoro": "I heard my name?",
         "the boys": "THE BOYS",
