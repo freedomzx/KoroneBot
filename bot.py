@@ -4,8 +4,6 @@ import random
 import asyncio
 from discord.ext import commands
 
-TOKEN = 'NTY0NjU4OTc0MTgwMjQ1NTIy.XKrKfg.8LctWjJNiUvHRnkWYtAmKyeZ8mY'
-
 client = discord.Client()
 bot = commands.Bot(command_prefix="!")
 
@@ -14,7 +12,6 @@ async def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
-    print("Let's make the world smile!")
     print('------------------')
     await client.change_presence(game=discord.Game(name='smiling :)'))
 
@@ -50,7 +47,7 @@ async def on_message(message): #all commands
         "!connectioninfo": str(client.ws),
         "!elijah": "yurilord gigachad",
         "!hello": "Hi " + message.author.mention + "! How are you?",
-        "!help": "```***COMMANDS***\n!hello\n!hi\n!kokoro\n!repeat\n!botinfo\n!selfie\n!connectioninfo\n!channelid\n!dm\n!roll```",
+        "!help": "```***COMMANDS***\n!hello\n!hi\n!kokoro\n!repeat\n!botinfo\n!selfie\n!connectioninfo\n!channelid\n!dm\n!roll\n!8ball\n!flip```",
         "!hi": "Hi " + message.author.mention + "! How are you?",
         "!kokoro": "That's me!",
         "!pregnant": "That's not true, look! https://i.ytimg.com/vi/psKUh0M4cW4/maxresdefault.jpg See?",
@@ -60,18 +57,41 @@ async def on_message(message): #all commands
 
     regularwords = {
         "owo": "owo what's this?",
-        "ben": "yo did someone say ben fuck that guy",
-        "kokoro": "I heard my name?",
-        "the boys": "THE BOYS",
-        "da boys": "DA BOIS",
+       # "kokoro": "I heard my name?",
     }
 
     if message.author == client.user:
         return
 
+    elif message.content.startswith("!8ball"):
+        x = random.randint(1,10)
+        ballresponses = {
+            1: "Uhh, maybe?",
+            2: "Definitely!",
+            3: "You probably don't want to know...",
+            4: "Not happening.",
+            5: "Probably not.  Sorry.",
+            6: "It's likely!",
+            7: "100%!!!",
+            8: "Uhh, nope.  Sorry.",
+            9: "Yep!",
+            10: "hell yea :joy: :ok_hand: :100:"
+        }
+        if len(message.content) > 7:
+            await client.send_message(message.channel, ballresponses[x])
+        else:
+            await client.send_message(message.channel, "Huh? You didn't ask anything...")
+
     elif message.content.startswith("!dm"):
         await client.send_message(message.author, "Hey, " + message.author.name + ". Fuck you.")
         await client.send_message(message.author, "Also, look at this: https://www.youtube.com/watch?v=dzMq5_thk4o")
+
+    elif message.content.startswith("!flip"):
+        x = random.randint(1,2)
+        if x == 1:
+            await client.send_message(message.channel, "Heads")
+        else:
+            await client.send_message(message.channel, "Tails")
 
     elif message.content.startswith("!repeat"):
         try:
@@ -102,4 +122,4 @@ async def on_message(message): #all commands
                 break
         return
 
-client.run(TOKEN)
+client.run('NTY0NjU4OTc0MTgwMjQ1NTIy.XKrKfg.8LctWjJNiUvHRnkWYtAmKyeZ8mY')
