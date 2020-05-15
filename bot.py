@@ -1,11 +1,14 @@
-# Work with Python 3.6
+# Works with Python 3.6+
 import discord
 import random
 import asyncio
 import sys
 import time
 import yfinance
+import importlib
 from discord.ext import commands
+
+import definitions
 
 client = discord.Client()
 bot = commands.Bot(command_prefix="!")
@@ -105,5 +108,5 @@ async def on_message(message): #all commands triggered via message
                 toSend = simpleCommands[x]
                 await channel.send(toSend)
 
-
-client.run('NTY0NjU4OTc0MTgwMjQ1NTIy.XKrKfg.8LctWjJNiUvHRnkWYtAmKyeZ8mY')
+token = definitions.token('r')
+client.run(token)
