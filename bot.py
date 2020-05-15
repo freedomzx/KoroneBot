@@ -91,6 +91,21 @@ async def on_message(message): #all commands triggered via message
 
         await channel.send(toSend)
 
+    #gets stcoks for thing
+    elif messageStr.startswith("!stocks"):
+        await channel.send("Stocks for who?  Please enter ticker symbol of company.")
+
+        msg = await client.wait_for('message', check=None)
+        company = yfinance.Ticker(msg.content)
+        dataframe = "```" + company.history(period="5d").to_string() + "```"
+
+        if dataframe.startswith("```Empty DataFrame"):
+            await channel.send("Cannot find ticker of " + msg.content)
+
+        else: 
+            await channel.send("Stock information over the last 5 days for: " + msg.content)
+            await channel.send(dataframe)
+
     #simple text to text responses
     elif messageStr.startswith("!"):
         for x in simpleCommands:
