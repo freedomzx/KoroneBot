@@ -8,7 +8,7 @@ import yfinance
 import importlib
 from discord.ext import commands
 
-import definitions
+from tokendef import *
 
 client = discord.Client()
 bot = commands.Bot(command_prefix="!")
@@ -52,7 +52,6 @@ async def on_message(message): #all commands triggered via message
 
         def check(m):
                 if m.author != message.author:
-                    print("not same ppl")
                     return False
                 
                 else:
@@ -68,7 +67,6 @@ async def on_message(message): #all commands triggered via message
         try:
             def check(m):
                 if m.author != message.author:
-                    print("not same ppl")
                     return False
                 
                 else:
@@ -108,5 +106,4 @@ async def on_message(message): #all commands triggered via message
                 toSend = simpleCommands[x]
                 await channel.send(toSend)
 
-token = definitions.token('r')
-client.run(token)
+client.run(token) #token is hidden from public repository
