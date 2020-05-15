@@ -2,10 +2,35 @@
 import discord
 import random
 import asyncio
+import sys
+import time
+import yfinance
 from discord.ext import commands
 
 client = discord.Client()
 bot = commands.Bot(command_prefix="!")
+
+simpleCommands = {
+    "!test" : "Working!",
+    "!whoami" : "A discord bot that does random stuff.  Created by: \nhttps://github.com/freedomzx",
+    "!help" : "List of commands are available in the source code at \nhttps://github.com/freedomzx/Kokoro-Kode",
+}
+
+ballresponses = {
+    1: "Uhh, maybe?",
+    2: "Definitely!",
+    3: "You probably don't want to know...",
+    4: "Not happening.",
+    5: "Probably not.  Sorry.",
+    6: "It's likely!",
+    7: "100%!!!",
+    8: "Uhh, nope.  Sorry.",
+    9: "Yep!",
+    10: "hell yea :joy: :ok_hand: :100:",
+    11: "Hmm... there's a chance?",
+    12: "I wouldn't count on it.", 
+    13: "Of course!  Why are you even asking?!",
+}
 
 @client.event
 async def on_ready():
@@ -13,113 +38,65 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------------------')
-    await client.change_presence(game=discord.Game(name='smiling :)'))
+    statusText = discord.Game(name = "with code!")
+    await client.change_presence(status = discord.Status.do_not_disturb, activity = statusText)
+    print('set status as \"' + statusText.name + "\"\n------------------")
 
 @client.event
-async def on_message_delete(message):
-    if message.author == client.user:
-        await client.send_message(message.channel, "Why are you deleting my messages :(")
-    else:
-        await client.send_message(message.channel, "A message got deleted!  Here are its contents: \n" + message.content)
-
-
-@client.event
-async def on_message_edit(before, after):
-    if before.author == client.user:
-        return
-    else:
-        msg = "A message by " + str(before.author) + " has been edited. \nBefore: *" + before.content + "*\nAfter: *" + after.content + "*"
-        await client.send_message(before.channel, msg)
-
-
-@client.event
-async def on_member_join(member):
-    await client.send_message(member.server.default_channel, "Welcome, " + member.mention)
-
-
-@client.event
-async def on_message(message): #all commands
-    simplecommands = {
-        "!test": "Yep",
-        "!ben": "goddamn ape",
-        "!botinfo": "It's me, " + client.user.mention + "!\n" + str(client.user.id) + "\n" + str(client.user.discriminator),
-        "!channelid": str(message.channel.id),
-        "!connectioninfo": str(client.ws),
-        "!elijah": "yurilord gigachad",
-        "!hello": "Hi " + message.author.mention + "! How are you?",
-        "!help": "```***COMMANDS***\n!hello\n!hi\n!kokoro\n!repeat\n!botinfo\n!selfie\n!connectioninfo\n!channelid\n!dm\n!roll\n!8ball\n!flip```",
-        "!hi": "Hi " + message.author.mention + "! How are you?",
-        "!kokoro": "That's me!",
-        "!pregnant": "That's not true, look! https://i.ytimg.com/vi/psKUh0M4cW4/maxresdefault.jpg See?",
-        "!roll": ":game_die: " + str(random.randint(1,6)) + " :game_die:",
-        "!selfie": client.user.avatar_url
-    }
-
-    regularwords = {
-        "owo": "owo what's this?",
-       # "kokoro": "I heard my name?",
-    }
+async def on_message(message): #all commands triggered via message
+    channel = message.channel
+    messageStr = message.content
 
     if message.author == client.user:
         return
 
-    elif message.content.startswith("!8ball"):
-        x = random.randint(1,10)
-        ballresponses = {
-            1: "Uhh, maybe?",
-            2: "Definitely!",
-            3: "You probably don't want to know...",
-            4: "Not happening.",
-            5: "Probably not.  Sorry.",
-            6: "It's likely!",
-            7: "100%!!!",
-            8: "Uhh, nope.  Sorry.",
-            9: "Yep!",
-            10: "hell yea :joy: :ok_hand: :100:"
-        }
-        if len(message.content) > 7:
-            await client.send_message(message.channel, ballresponses[x])
-        else:
-            await client.send_message(message.channel, "Huh? You didn't ask anything...")
+    #gives randomized responses after waiting for a string
+    elif messageStr.startswith("!8ball"):
+        await channel.send("What do you wanna know the answer to?")
+        num = random.randint(1, 13)
 
-    elif message.content.startswith("!dm"):
-        await client.send_message(message.author, "Hey, " + message.author.name + ". Fuck you.")
-        await client.send_message(message.author, "Also, look at this: https://www.youtube.com/watch?v=dzMq5_thk4o")
+        def check(m):
+                if m.author != message.author:
+                    print("not same ppl")
+                    return False
+                
+                else:
+                    return True
 
-    elif message.content.startswith("!flip"):
-        x = random.randint(1,2)
-        if x == 1:
-            await client.send_message(message.channel, "Heads")
-        else:
-            await client.send_message(message.channel, "Tails")
+        msg = await client.wait_for('message', check=check)
+        await channel.send(ballresponses[num])        
 
-    elif message.content.startswith("!repeat"):
+    #rolls a number from 1 to given range
+    elif messageStr.startswith("!roll"):
+        await channel.send("Please enter the cap for the roll range.")
+
         try:
-            x = message.content.index("pregnant")
-            msg = "That's not true, look! https://i.ytimg.com/vi/psKUh0M4cW4/maxresdefault.jpg".format(message)
-            await client.send_message(message.channel, msg)
-            await client.send_message(message.channel, "See?")
+            def check(m):
+                if m.author != message.author:
+                    print("not same ppl")
+                    return False
+                
+                else:
+                    return type(int(m.content)) is int and m.author != message.author
+
+            msg = await client.wait_for('message', check=check)
+            await channel.send(str(random.randint(1, int(msg.content))))
+        
         except ValueError:
-            msg = message.content[8:].format(message)
-            await client.send_message(message.channel, msg)
+            await channel.send("Invalid input.")
+        
+    #rolls a number from 1-6
+    elif messageStr.startswith("!rtd"):
+        toSend = ":game_die: " + str(random.randint(1, 6)) + " :game_die:"
 
-    elif message.content.startswith("!"):
-        for x in simplecommands:
-            if x in message.content.lower():
-                msg = simplecommands[x]
-                await client.send_message(message.channel, msg)
-                break
-        return
+        await channel.send(toSend)
 
-    elif client.user.mentioned_in(message):
-        await client.send_message(message.channel, "Huh?")
+    #simple text to text responses
+    elif messageStr.startswith("!"):
+        for x in simpleCommands:
+            if x in messageStr.lower():
+                toSend = simpleCommands[x]
+                await channel.send(toSend)
 
-    else:
-        for x in regularwords:
-            if x in message.content.lower():
-                msg = regularwords[x]
-                await client.send_message(message.channel, msg)
-                break
-        return
 
 client.run('NTY0NjU4OTc0MTgwMjQ1NTIy.XKrKfg.8LctWjJNiUvHRnkWYtAmKyeZ8mY')
