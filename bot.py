@@ -133,7 +133,8 @@ async def on_message(message): #all commands triggered via message
 
     elif messageStr.startswith("!wordoftheday"):
         r = RandomWords()
-        await channel.send(r.word_of_the_day())
+        word = r.word_of_the_day().replace("definations", "definitions")
+        await channel.send(word)
 
     #simple text to text responses
     elif messageStr.startswith("!"):
