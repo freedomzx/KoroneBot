@@ -8,6 +8,7 @@ import json
 import requests
 from discord.ext import commands
 
+import tokendef
 from tokendef import *
 import definitions
 from definitions import *
@@ -35,6 +36,7 @@ async def on_ready():
 async def on_message(message): #all commands triggered via message
     channel = message.channel
     messageStr = message.content
+    hangmanOngoing = 0
 
     def basicCheck(m):
         if m.author != message.author:
@@ -49,34 +51,72 @@ async def on_message(message): #all commands triggered via message
     elif messageStr.startswith("!8ball"):
         await channel.send("What do you wanna know the answer to?")
         num = random.randint(1, 18)
-
         msg = await client.wait_for('message', check=basicCheck)
         await channel.send(ballresponses[num])
 
     #starts hangman
-    elif messageStr.startswith("!hangman"):
-        await channel.send("Alright, new game! Use !hangman <guess> to guess a letter, or the entire word!\n" + hangmanLives[7])
-        word = getRandomWord()
-        await channel.send(hangmanLives[6])
-        await channel.send(hangmanLives[5])
-        await channel.send(hangmanLives[4])
-        await channel.send(hangmanLives[3])
-        await channel.send(hangmanLives[2])
-        await channel.send(hangmanLives[1])
-        await channel.send(hangmanLives[0])
-        
+    elif messageStr.startswith("!hangman") and hangmanOngoing == 0:
+        hangmanOngoing = 1
+        await channel.send("Alright, new hangman game!  Say !guess <guess> to guess a letter or the entire word.  The word will be in all lowercase.")
+        word = commandhelpers.getRandomWord().lower()
+        length = len(word)
+        guessSpaces = fillHMSpaces(word)
+        guessList = []
+
+        def hangmanCheck(m):
+            if m.content.startswith("!guess ") == False or len(m.content) <= 7:
+                return False
+            else: 
+                return True
+
+        lives = 7
+        print(word)
+        print(guessSpaces)
+
+        #actual game 
+        while(True):
+            await channel.send(hangmanLives[lives])
+            toSendSpaces = "```"
+            for i in guessSpaces:
+                toSendSpaces = toSendSpaces + i + " "
+            toSendSpaces = toSendSpaces + "```"
+            await channel.send(toSendSpaces)
+            msg = await client.wait_for("message", check=hangmanCheck)
+            guess = getGuess(msg.content)
+            if guess == word:
+                await channel.send("You got it!  The word was: " + word + ".")
+                hangmanOngoing = 0
+                break
+            elif len(guess) == 1 and guess in word:
+                await channel.send("That's part of it!")
+                #find all indices that the letter is in the word and replace it
+                i = 0
+                while i < len(word):
+                    if word[i] == guess:
+                        guessSpaces[i] = guess
+                    i += 1
+                #break if winning guess
+                if "_" not in guessSpaces:
+                    await channel.send("You win! The word was: " + word)
+                    break
+            else:
+                await channel.send("Bad guess.\n")
+                lives-=1
+            #game over
+            if lives == 0:
+                await channel.send("Game over!\n" + hangmanLives[lives])
+                break
+
 
     #rolls a number from 1 to given range
     elif messageStr.startswith("!roll"):
         await channel.send("Please enter the cap for the roll range.")
-
         try:
             def check(m):
                 if m.author != message.author:
                     return False
                 else:
                     return type(int(m.content)) is int and m.author != message.author
-
             msg = await client.wait_for('message', check=check)
             await channel.send(str(random.randint(1, int(msg.content))))
         except ValueError:
@@ -110,9 +150,7 @@ async def on_message(message): #all commands triggered via message
         await channel.send("Please enter the country code (check https://countrycode.org/ and use the 2-letter ISO code): ")
         msg = await client.wait_for("message", check=basicCheck)
         countrycode = msg.content
-
         url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + "," + countrycode + "&appid=" + weatherapitoken
-
         response = requests.get(url)
         x = response.json()
 

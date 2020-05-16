@@ -24,4 +24,20 @@ def getRandomWord():
             continue
     return word
 
+def getGuess(msgContent):
+    guess = msgContent[7:len(msgContent)]
+    return guess
+
+def fillHMSpaces(word):
+    toReturn = []
+    for i in word:
+        if i == " ":
+            toReturn.append(" ")
+        elif i == "-":
+            toReturn.append("-")
+        else:
+            toReturn.append("_")
+    return toReturn
+
+
 
