@@ -1,3 +1,20 @@
+import discord
+import random
+import asyncio
+import sys
+import time
+import yfinance
+import json
+import requests
+from discord.ext import commands
+
+import tokendef
+from tokendef import *
+import definitions
+from definitions import *
+from PyDictionary import PyDictionary
+from random_word import RandomWords
+
 simpleCommands = {
     "!test" : "Working!",
     "!whoami" : "A discord bot that does random stuff.  Created by: \nhttps://github.com/freedomzx",
@@ -11,3 +28,9 @@ ballresponses = {
     13: "Of course!  Why are you even asking?!", 14: "I don't know about that one...", 15: "Wouldn't dream of it.",
     16: "Yes.", 17: "No.", 18: "The answer will come to you.", 
 }
+
+hangmanLives = {
+    7: "```|----------\n|         \n|\n|\n|\n|```" 
+}
+
+r = RandomWords()

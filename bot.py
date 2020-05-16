@@ -11,12 +11,14 @@ from discord.ext import commands
 
 import tokendef
 from tokendef import *
+import definitions
 from definitions import *
 from PyDictionary import PyDictionary
 from random_word import RandomWords
 
 client = discord.Client()
 bot = commands.Bot(command_prefix="!")
+
 
 @client.event
 async def on_ready():
@@ -33,6 +35,12 @@ async def on_message(message): #all commands triggered via message
     channel = message.channel
     messageStr = message.content
 
+    def basicCheck(m):
+        if m.author != message.author:
+            return False
+        else:
+            return True
+
     if message.author == client.user:
         return
 
@@ -41,15 +49,13 @@ async def on_message(message): #all commands triggered via message
         await channel.send("What do you wanna know the answer to?")
         num = random.randint(1, 18)
 
-        def check(m):
-                if m.author != message.author:
-                    return False
-                
-                else:
-                    return True
-
-        msg = await client.wait_for('message', check=check)
+        msg = await client.wait_for('message', check=basicCheck)
         await channel.send(ballresponses[num])
+
+    #starts hangman
+    elif messageStr.startswith("!hangman"):
+        await channel.send("Alright, new game! Use !hangman <guess> to guess a letter, or the entire word!\n" + hangmanLives[7])
+        
 
     #rolls a number from 1 to given range
     elif messageStr.startswith("!roll"):
@@ -64,33 +70,24 @@ async def on_message(message): #all commands triggered via message
 
             msg = await client.wait_for('message', check=check)
             await channel.send(str(random.randint(1, int(msg.content))))
-        
         except ValueError:
             await channel.send("Invalid input.")
         
     #rolls a number from 1-6
     elif messageStr.startswith("!rtd"):
         toSend = ":game_die: " + str(random.randint(1, 6)) + " :game_die:"
-
         await channel.send(toSend)
 
     #gets stcoks for thing
     elif messageStr.startswith("!stocks"):
         await channel.send("Stocks for who?  Please enter ticker symbol of company.")
 
-        def check(m):
-            if m.author != message.author:
-                return False
-            else:
-                return True
-
-        msg = await client.wait_for('message', check=check)
+        msg = await client.wait_for('message', check=basicCheck)
         company = yfinance.Ticker(msg.content)
         dataframe = "```" + company.history(period="5d").to_string() + "```"
 
         if dataframe.startswith("```Empty DataFrame"):
             await channel.send("Cannot find ticker of " + msg.content)
-
         else: 
             await channel.send("Stock information over the last 5 days for: " + msg.content)
             await channel.send(dataframe)
@@ -99,23 +96,16 @@ async def on_message(message): #all commands triggered via message
     elif messageStr.startswith("!weather"):
         await channel.send("Please enter the zip code: ")
 
-        def check(m):
-            if m.author != message.author:
-                return False
-            else:
-                return True
-
-        msg = await client.wait_for('message', check=check)
+        msg = await client.wait_for('message', check=basicCheck)
         zipcode = msg.content
         await channel.send("Please enter the country code (check https://countrycode.org/ and use the 2-letter ISO code): ")
-        msg = await client.wait_for("message", check=check)
+        msg = await client.wait_for("message", check=basicCheck)
         countrycode = msg.content
 
         url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + "," + countrycode + "&appid=" + weatherapitoken
 
         response = requests.get(url)
         x = response.json()
-
 
         if x["cod"] != "404":
             y = x["main"]
@@ -132,9 +122,7 @@ async def on_message(message): #all commands triggered via message
             await channel.send("Cannot find " + zipcode + ", " + countrycode)
 
     elif messageStr.startswith("!wordoftheday"):
-        r = RandomWords()
-        word = r.word_of_the_day().replace("definations", "definitions")
-        await channel.send(word)
+        await channel.send(r.word_of_the_day().replace("definations", "definitions"))
 
     #simple text to text responses
     elif messageStr.startswith("!"):
@@ -142,5 +130,6 @@ async def on_message(message): #all commands triggered via message
             if x in messageStr.lower():
                 toSend = simpleCommands[x]
                 await channel.send(toSend)
+                break
 
 client.run(token) #token is hidden from public repository
