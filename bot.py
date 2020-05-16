@@ -5,12 +5,15 @@ import asyncio
 import sys
 import time
 import yfinance
+import json
 import requests
 from discord.ext import commands
 
 import tokendef
 from tokendef import *
 from definitions import *
+from PyDictionary import PyDictionary
+from random_word import RandomWords
 
 client = discord.Client()
 bot = commands.Bot(command_prefix="!")
@@ -48,23 +51,6 @@ async def on_message(message): #all commands triggered via message
         msg = await client.wait_for('message', check=check)
         await channel.send(ballresponses[num])
 
-    #random word and definition from wordsapi
-    elif messageStr.startswith("!randomword"):
-        url = "https://wordsapiv1.p.rapidapi.com/words/"
-        querystring = {
-            "random": "true"
-        }
-        headers = {
-            "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-            "x-rapidapi-key": wordsapitoken
-        }
-
-        response = requests.request("GET", url, headers=headers, params=querystring)
-
-        print(response.text)
-        await channel.send(response.text)
-        
-
     #rolls a number from 1 to given range
     elif messageStr.startswith("!roll"):
         await channel.send("Please enter the cap for the roll range.")
@@ -73,7 +59,6 @@ async def on_message(message): #all commands triggered via message
             def check(m):
                 if m.author != message.author:
                     return False
-                
                 else:
                     return type(int(m.content)) is int and m.author != message.author
 
@@ -93,7 +78,13 @@ async def on_message(message): #all commands triggered via message
     elif messageStr.startswith("!stocks"):
         await channel.send("Stocks for who?  Please enter ticker symbol of company.")
 
-        msg = await client.wait_for('message', check=None)
+        def check(m):
+            if m.author != message.author:
+                return False
+            else:
+                return True
+
+        msg = await client.wait_for('message', check=check)
         company = yfinance.Ticker(msg.content)
         dataframe = "```" + company.history(period="5d").to_string() + "```"
 
@@ -103,6 +94,46 @@ async def on_message(message): #all commands triggered via message
         else: 
             await channel.send("Stock information over the last 5 days for: " + msg.content)
             await channel.send(dataframe)
+
+    #get weather of a city/town using openweather api
+    elif messageStr.startswith("!weather"):
+        await channel.send("Please enter the zip code: ")
+
+        def check(m):
+            if m.author != message.author:
+                return False
+            else:
+                return True
+
+        msg = await client.wait_for('message', check=check)
+        zipcode = msg.content
+        await channel.send("Please enter the country code (check https://countrycode.org/ and use the 2-letter ISO code): ")
+        msg = await client.wait_for("message", check=check)
+        countrycode = msg.content
+
+        url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + "," + countrycode + "&appid=" + weatherapitoken
+
+        response = requests.get(url)
+        x = response.json()
+
+
+        if x["cod"] != "404":
+            y = x["main"]
+            tempK = y["temp"]
+            tempF = tempK * (9/5) - 459.67
+            tempC = tempK - 273.15
+            pressure = y["pressure"]
+            humidity = y["humidity"]
+            z = x["weather"]
+            weather = z[0]["description"]
+            toSend = "```Weather in " + x["name"] + ":\nTemperature: " + str(tempK) + "K/" + str(tempF) + "F/" + str(tempC) + "C\nPressure: " + str(pressure) + "\nHumidity: " + str(humidity) + "\nWeather: " + str(weather) + "```"
+            await channel.send(toSend)
+        else:
+            await channel.send("Cannot find " + zipcode + ", " + countrycode)
+
+    elif messageStr.startswith("!wordoftheday"):
+        r = RandomWords()
+        await channel.send(r.word_of_the_day())
 
     #simple text to text responses
     elif messageStr.startswith("!"):
