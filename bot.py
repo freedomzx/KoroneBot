@@ -61,7 +61,6 @@ async def on_message(message): #all commands triggered via message
         word = commandhelpers.getRandomWord().lower()
         length = len(word)
         guessSpaces = fillHMSpaces(word)
-        guessList = []
 
         def hangmanCheck(m):
             if m.content.startswith("!guess ") == False or len(m.content) <= 7:
@@ -81,8 +80,10 @@ async def on_message(message): #all commands triggered via message
                 toSendSpaces = toSendSpaces + i + " "
             toSendSpaces = toSendSpaces + "```"
             await channel.send(toSendSpaces)
+
             msg = await client.wait_for("message", check=hangmanCheck)
             guess = getGuess(msg.content)
+
             if guess == word:
                 await channel.send("You got it!  The word was: " + word + ".")
                 hangmanOngoing = 0
@@ -99,14 +100,14 @@ async def on_message(message): #all commands triggered via message
                 if "_" not in guessSpaces:
                     await channel.send("You win! The word was: " + word)
                     break
+
             else:
                 await channel.send("Bad guess.\n")
                 lives-=1
             #game over
             if lives == 0:
-                await channel.send("Game over!\n" + hangmanLives[lives])
+                await channel.send("Game over!\n" + hangmanLives[lives] + "The word was: " + word)
                 break
-
 
     #rolls a number from 1 to given range
     elif messageStr.startswith("!roll"):

@@ -13,10 +13,12 @@ from definitions import *
 from PyDictionary import PyDictionary
 from random_word import RandomWords
 
+commandsList = "```!test, !whoami, !hangman, !weather, !stocks, !wordoftheday, !8ball, !roll, !rtd```"
+
 simpleCommands = {
     "!test" : "Working!",
     "!whoami" : "A discord bot that does random stuff.  Created by: \nhttps://github.com/freedomzx",
-    "!help" : "List of commands are available in the source code at \nhttps://github.com/freedomzx/Kokoro-Kode",
+    "!help" : commandsList,
 }
 
 ballresponses = {
