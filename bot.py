@@ -5,27 +5,15 @@ import asyncio
 import sys
 import time
 import yfinance
-import importlib
+import requests
 from discord.ext import commands
 
+import tokendef
 from tokendef import *
+from definitions import *
 
 client = discord.Client()
 bot = commands.Bot(command_prefix="!")
-
-simpleCommands = {
-    "!test" : "Working!",
-    "!whoami" : "A discord bot that does random stuff.  Created by: \nhttps://github.com/freedomzx",
-    "!help" : "List of commands are available in the source code at \nhttps://github.com/freedomzx/Kokoro-Kode",
-}
-
-ballresponses = {
-    1: "Uhh, maybe?", 2: "Definitely!", 3: "You probably don't want to know...", 4: "Not happening.",
-    5: "Probably not.  Sorry.", 6: "It's likely!", 7: "100%!!!", 8: "Uhh, nope.  Sorry.",
-    9: "Yep!", 10: "hell yea :joy: :ok_hand: :100:", 11: "Hmm... there's a chance?", 12: "I wouldn't count on it.", 
-    13: "Of course!  Why are you even asking?!", 14: "I don't know about that one...", 15: "Wouldn't dream of it.",
-    16: "Yes.", 17: "No.", 18: "The answer will come to you.", 
-}
 
 @client.event
 async def on_ready():
@@ -33,7 +21,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print('------------------')
-    statusText = discord.Game(name = "with code!")
+    statusText = discord.Game(name = "not yandere sim!")
     await client.change_presence(status = discord.Status.do_not_disturb, activity = statusText)
     print('set status as \"' + statusText.name + "\"\n------------------")
 
@@ -58,7 +46,24 @@ async def on_message(message): #all commands triggered via message
                     return True
 
         msg = await client.wait_for('message', check=check)
-        await channel.send(ballresponses[num])        
+        await channel.send(ballresponses[num])
+
+    #random word and definition from wordsapi
+    elif messageStr.startswith("!randomword"):
+        url = "https://wordsapiv1.p.rapidapi.com/words/"
+        querystring = {
+            "random": "true"
+        }
+        headers = {
+            "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+            "x-rapidapi-key": wordsapitoken
+        }
+
+        response = requests.request("GET", url, headers=headers, params=querystring)
+
+        print(response.text)
+        await channel.send(response.text)
+        
 
     #rolls a number from 1 to given range
     elif messageStr.startswith("!roll"):
