@@ -1,4 +1,3 @@
-# Works with Python 3.6+
 import discord
 import random
 import asyncio
@@ -9,10 +8,12 @@ import json
 import requests
 from discord.ext import commands
 
-import tokendef
 from tokendef import *
 import definitions
 from definitions import *
+import commandhelpers
+from commandhelpers import *
+
 from PyDictionary import PyDictionary
 from random_word import RandomWords
 
@@ -55,6 +56,14 @@ async def on_message(message): #all commands triggered via message
     #starts hangman
     elif messageStr.startswith("!hangman"):
         await channel.send("Alright, new game! Use !hangman <guess> to guess a letter, or the entire word!\n" + hangmanLives[7])
+        word = getRandomWord()
+        await channel.send(hangmanLives[6])
+        await channel.send(hangmanLives[5])
+        await channel.send(hangmanLives[4])
+        await channel.send(hangmanLives[3])
+        await channel.send(hangmanLives[2])
+        await channel.send(hangmanLives[1])
+        await channel.send(hangmanLives[0])
         
 
     #rolls a number from 1 to given range
