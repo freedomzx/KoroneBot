@@ -41,3 +41,4 @@ hangmanLives = {
 }
 
 r = RandomWords()
+dictionary = PyDictionary()
