@@ -82,7 +82,7 @@ async def on_message(message): #all commands triggered via message
             await channel.send(toSendSpaces)
 
             msg = await client.wait_for("message", check=hangmanCheck)
-            guess = getGuess(msg.content)
+            guess = getGuess(msg.content).lower()
 
             if guess == word:
                 await channel.send("You got it!  The word was: " + word + ".")
