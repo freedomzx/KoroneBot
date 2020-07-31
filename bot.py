@@ -128,6 +128,10 @@ async def on_message(message): #all commands triggered via message
         toSend = ":game_die: " + str(random.randint(1, 6)) + " :game_die:"
         await channel.send(toSend)
 
+    elif messageStr.startswith("!shutup"):
+        toSend = "https://cdn.discordapp.com/attachments/622612389522702347/737068592423632937/20200726_112711.jpg"
+        await channel.send(toSend)
+
     #gets stcoks for thing
     elif messageStr.startswith("!stocks"):
         await channel.send("Stocks for who?  Please enter ticker symbol of company.")
