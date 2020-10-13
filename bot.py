@@ -173,13 +173,13 @@ async def on_message(message): #all commands triggered via message
         else:
             await channel.send("Cannot find " + zipcode + ", " + countrycode)
 
-    elif messageStr.startswith("!wordoftheday"):
-        wordDic = json.loads(r.word_of_the_day().replace("definations", "definitions"))
-        toSend = "Today's word of the day:\n```" + wordDic["word"] + ":\n"
-        for i in wordDic["definitions"]:
-            toSend = toSend + i["partOfSpeech"] + ": " + i["text"] + "\n"
-        toSend = toSend + "```"
-        await channel.send(toSend)
+    # elif messageStr.startswith("!wordoftheday"): api is broken
+    #     ##wordDic = json.loads(r.word_of_the_day().replace("definations", "definitions"))
+    #     toSend = "Today's word of the day:\n```" + wordDic["word"] + ":\n"
+    #     for i in wordDic["definitions"]:
+    #         toSend = toSend + i["partOfSpeech"] + ": " + i["text"] + "\n"
+    #     toSend = toSend + "```"
+    #     await channel.send(toSend)
 
     #simple text to text responses
     elif messageStr.startswith("!"):
