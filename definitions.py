@@ -19,6 +19,7 @@ simpleCommands = {
     "!test" : "Working!",
     "!whoami" : "A discord bot that does random stuff.  Created by: \nhttps://github.com/freedomzx",
     "!help" : commandsList,
+    "!shutup" : "https://cdn.discordapp.com/attachments/622612389522702347/737068592423632937/20200726_112711.jpg",
 }
 
 ballresponses = {

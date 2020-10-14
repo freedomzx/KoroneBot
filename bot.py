@@ -54,10 +54,19 @@ async def on_message(message): #all commands triggered via message
         msg = await client.wait_for('message', check=basicCheck)
         await channel.send(ballresponses[num])
 
+    #define word, say if can't
+    elif messageStr.startswith("!define"):
+        toDefine = messageStr[8:len(messageStr)]
+        definition = dictionary.meaning(toDefine)
+        if definition is None:
+            await channel.send("Hmm... Can't seem to find that word.")
+        else:
+            await channel.send(definition)
+
     #starts hangman
     elif messageStr.startswith("!hangman") and hangmanOngoing == 0:
         hangmanOngoing = 1
-        await channel.send("Alright, new hangman game!  Say !guess <guess> to guess a letter or the entire word.  The word will be in all lowercase.")
+        await channel.send("Alright, new hangman game!  Say !guess <guess> to guess a letter or the entire word.  The word will be in all lowercase.  Please wait for the game to appear... (might take a little, the random words module isn't the best)")
         word = commandhelpers.getRandomWord().lower()
         length = len(word)
         guessSpaces = fillHMSpaces(word)
@@ -109,6 +118,12 @@ async def on_message(message): #all commands triggered via message
                 await channel.send("Game over!\n" + hangmanLives[lives] + "The word was: " + word)
                 break
 
+    #fetches random word and its definition
+    elif messageStr.startswith("!randomword"):
+        word = commandhelpers.getRandomWord().lower()
+        toSend = word## + ": " + json.dictionary.meaning(word)
+        await channel.send(toSend)
+
     #rolls a number from 1 to given range
     elif messageStr.startswith("!roll"):
         await channel.send("Please enter the cap for the roll range.")
@@ -126,10 +141,6 @@ async def on_message(message): #all commands triggered via message
     #rolls a number from 1-6
     elif messageStr.startswith("!rtd"):
         toSend = ":game_die: " + str(random.randint(1, 6)) + " :game_die:"
-        await channel.send(toSend)
-
-    elif messageStr.startswith("!shutup"):
-        toSend = "https://cdn.discordapp.com/attachments/622612389522702347/737068592423632937/20200726_112711.jpg"
         await channel.send(toSend)
 
     #gets stcoks for thing
