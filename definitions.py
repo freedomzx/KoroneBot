@@ -12,6 +12,7 @@ import definitions
 from definitions import *
 from PyDictionary import PyDictionary
 from random_word import RandomWords
+from googletrans import Translator
 
 commandsList = "```!test, !whoami, !hangman, !weather, !stocks, !wordoftheday, !8ball, !roll, !rtd```"
 
@@ -43,3 +44,4 @@ hangmanLives = {
 
 r = RandomWords()
 dictionary = PyDictionary()
+translator = Translator()

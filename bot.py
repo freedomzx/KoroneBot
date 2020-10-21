@@ -17,6 +17,7 @@ from commandhelpers import *
 
 from PyDictionary import PyDictionary
 from random_word import RandomWords
+from googletrans import Translator
 
 client = discord.Client()
 bot = commands.Bot(command_prefix="!")
@@ -156,6 +157,24 @@ async def on_message(message): #all commands triggered via message
         else: 
             await channel.send("Stock information over the last 5 days for: " + msg.content)
             await channel.send(dataframe)
+
+    #translate into a language!
+    elif messageStr.startswith("!translate"):
+        await channel.send("Please enter a sentence.")
+
+        msg = await client.wait_for('message', check=basicCheck)
+        sentence = msg.content
+
+        await channel.send("Please enter the language code to translate to.  (consult https://sites.google.com/site/opti365/translate_codes)")
+        msg = await client.wait_for('message', check=basicCheck)
+        language = msg.content
+
+
+        translated = translator.translate(sentence, dest=language)
+        toSend = translated.text
+        print(toSend)
+        await channel.send(toSend)
+
 
     #get weather of a city/town using openweather api
     elif messageStr.startswith("!weather"):
