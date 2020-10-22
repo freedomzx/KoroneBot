@@ -133,7 +133,7 @@ async def on_message(message): #all commands triggered via message
                 if m.author != message.author:
                     return False
                 else:
-                    return type(int(m.content)) is int and m.author != message.author
+                    return type(int(m.content)) is int and m.author == message.author
             msg = await client.wait_for('message', check=check)
             await channel.send(str(random.randint(1, int(msg.content))))
         except ValueError:
