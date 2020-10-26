@@ -6,6 +6,7 @@ import time
 import yfinance
 import json
 import requests
+import datetime
 from discord.ext import commands
 
 import tokendef
@@ -19,8 +20,13 @@ from PyDictionary import PyDictionary
 from random_word import RandomWords
 from googletrans import Translator
 
+import mysql.connector
+from mysql.connector import Error
+import pandas as pd
+
 client = discord.Client()
 bot = commands.Bot(command_prefix="!")
+connection = create_db_connection(host, username, password, db)
 
 
 @client.event
@@ -54,6 +60,29 @@ async def on_message(message): #all commands triggered via message
         num = random.randint(1, 18)
         msg = await client.wait_for('message', check=basicCheck)
         await channel.send(ballresponses[num])
+
+    #stores a command into SQL db
+    elif messageStr.startswith("!addcommand"):
+        await channel.send("What will the name of the command be?")
+        msg = await client.wait_for('message', check=basicCheck)
+        commandName = ""
+        if " " not in msg.content:
+            commandName = "!" + msg.content
+        
+        await channel.send("What will the contents of the command be?")
+        msg = await client.wait_for('message', check=basicCheck)
+
+        x = datetime.datetime.now()
+        year = x.strftime("%Y")
+        month = x.strftime("%m")
+        day = x.strftime("%d")
+        fulltime = year + "-" + month + "-" + day 
+        
+        commandContents = msg.content
+        toQuery = "INSERT INTO COMMANDS VALUES" + " ('" + commandName + "', '" + commandContents + "', '" + str(msg.author) + "', '" + fulltime + "');"
+        #print(toQuery)
+        cursor = execute_query(connection, toQuery)
+        await channel.send("Command added if not already in existence.")
 
     #define word, say if can't
     elif messageStr.startswith("!define"):
@@ -118,6 +147,10 @@ async def on_message(message): #all commands triggered via message
             if lives == 0:
                 await channel.send("Game over!\n" + hangmanLives[lives] + "The word was: " + word)
                 break
+
+    #list of commands
+    elif messageStr.startswith("!help"):
+        await channel.send(simpleCommands["!help"])
 
     #fetches random word and its definition
     elif messageStr.startswith("!randomword"):
@@ -213,10 +246,16 @@ async def on_message(message): #all commands triggered via message
 
     #simple text to text responses
     elif messageStr.startswith("!"):
-        for x in simpleCommands:
-            if x in messageStr.lower():
-                toSend = simpleCommands[x]
-                await channel.send(toSend)
-                break
+        cursor = execute_query(connection, "select command_name from commands")
+        commandNames = cursor.fetchall()
+        toComp = "('" + messageStr + "',)"
+        for x in commandNames:
+            if toComp == str(x):
+                toQuery = "select command_contents from commands where command_name = '" + messageStr + "'"
+                cursor = execute_query(connection, toQuery)
+                commandContent = cursor.fetchall()
+                #print(str(commandContent[0])[2:-3])
+                await channel.send(str(commandContent[0])[2:-3])
+                
 
 client.run(token) #token is hidden from public repository

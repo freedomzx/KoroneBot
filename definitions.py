@@ -6,6 +6,7 @@ import time
 import yfinance
 import json
 import requests
+import datetime
 from discord.ext import commands
 
 import definitions
@@ -17,10 +18,7 @@ from googletrans import Translator
 commandsList = "```!test, !whoami, !hangman, !weather, !stocks, !wordoftheday, !8ball, !roll, !rtd```"
 
 simpleCommands = {
-    "!test" : "Working!",
-    "!whoami" : "A discord bot that does random stuff.  Created by: \nhttps://github.com/freedomzx",
-    "!help" : commandsList,
-    "!shutup" : "https://cdn.discordapp.com/attachments/622612389522702347/737068592423632937/20200726_112711.jpg",
+    "!help" : commandsList
 }
 
 ballresponses = {
