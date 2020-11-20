@@ -44,6 +44,12 @@ Order: Send "!roll", wait for bot response, send a number n for the roll range c
 Rolls a random number between 1 to 6.
 Order: Send "!rtd", receive a random number from 1 to 6.
 
+### !stocks
+
+Gets stock information for a certain company's ticker.
+
+Order: Send "!stocks", wait for bot response, send the ticker of the company to analyze stock data for, receive either an error message (cannot be found) or the stock information of the company.
+
 ### !translate
 
 Translates any given words or sentences into a different language using the Google Translate API.
