@@ -152,6 +152,12 @@ async def on_message(message): #all commands triggered via message
     elif messageStr.startswith("!help"):
         await channel.send(simpleCommands["!help"])
 
+    #get insulted!
+    elif messageStr.startswith("!insult"):
+        response = requests.get("https://evilinsult.com/generate_insult.php?lang=en&type=json")
+        hurtfulStuff = response.json()
+        await channel.send(hurtfulStuff["insult"] + " :)")
+
     #fetches random word and its definition
     elif messageStr.startswith("!randomword"):
         word = commandhelpers.getRandomWord().lower()
