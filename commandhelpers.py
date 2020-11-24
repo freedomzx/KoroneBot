@@ -19,24 +19,29 @@ from mysql.connector import Error
 import pandas as pd
 
 #for hangman
+# def getRandomWord():
+#     word = ""
+#     while(True):
+#         try:
+#             reset = 0
+#             word = r.get_random_word(hasDictionaryDef = "true")
+#             for char in word: #check if each letter is part of alphabet or space or -
+#                 if not char.isalpha() and char != "-" and char != " ": 
+#                     reset = 1
+#                     break
+#             if reset == 1:
+#                 print("non alphabetical non - non space letter, getting new word")
+#                 continue
+#             break
+#         except:
+#             print("Error in word retrieval, getting a new one")
+#             continue
+#     return word
 def getRandomWord():
-    word = ""
-    while(True):
-        try:
-            reset = 0
-            word = r.get_random_word(hasDictionaryDef = "true")
-            for char in word: #check if each letter is part of alphabet or space or -
-                if not char.isalpha() and char != "-" and char != " ": 
-                    reset = 1
-                    break
-            if reset == 1:
-                print("non alphabetical non - non space letter, getting new word")
-                continue
-            break
-        except:
-            print("Error in word retrieval, getting a new one")
-            continue
-    return word
+    word = random.choice(wordsRequest)
+    word = word.decode("utf-8")
+    return str(word)
+    
 
 def getGuess(msgContent):
     guess = msgContent[7:len(msgContent)]

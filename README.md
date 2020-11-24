@@ -33,6 +33,12 @@ Causes the bot to respond with a list of commands, not including custom ones fro
 
 Order: Send "!help", get response.
 
+### !insult
+
+Causes the bot to insult you!
+
+Order: Send "!insult", get response.
+
 ### !randomword
 
 Causes the bot to fetch a random word from the RandomWord API.

@@ -17,6 +17,9 @@ from googletrans import Translator
 
 commandsList = "```!test, !whoami, !hangman, !weather, !stocks, !wordoftheday, !8ball, !roll, !rtd```"
 
+wordsURL = "https://www.mit.edu/~ecprice/wordlist.10000"
+wordsRequest = requests.get(wordsURL).content.splitlines()
+
 simpleCommands = {
     "!help" : commandsList
 }

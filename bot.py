@@ -96,7 +96,7 @@ async def on_message(message): #all commands triggered via message
     #starts hangman
     elif messageStr.startswith("!hangman") and hangmanOngoing == 0:
         hangmanOngoing = 1
-        await channel.send("Alright, new hangman game!  Say !guess <guess> to guess a letter or the entire word.  The word will be in all lowercase.  Please wait for the game to appear... (might take a little, the random words module isn't the best)")
+        await channel.send("Alright, new hangman game!  Say !guess <guess> to guess a letter or the entire word.  The word will be in all lowercase.  Please wait for the game to appear...")
         word = commandhelpers.getRandomWord().lower()
         length = len(word)
         guessSpaces = fillHMSpaces(word)
@@ -251,7 +251,7 @@ async def on_message(message): #all commands triggered via message
     #     await channel.send(toSend)
 
     #simple text to text responses
-    elif messageStr.startswith("!"):
+    elif messageStr.startswith("!") and not messageStr.startswith("!guess"):
         cursor = execute_query(connection, "select command_name from commands")
         commandNames = cursor.fetchall()
         toComp = "('" + messageStr + "',)"
