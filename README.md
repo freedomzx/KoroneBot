@@ -45,17 +45,23 @@ Gets stock information for a certain company's ticker.
 
 Order: Send "!stocks", wait for bot response, send the ticker of the company to analyze stock data for, receive either an error message (cannot be found) or the stock information of the company.
 
+Thank you to the writer of the Yahoo! Finance PyPi for powering this function.  https://pypi.org/project/yfinance/
+
 ### !translate
 
 Translates any given words or sentences into a different language using the Google Translate API.
 
 Order: Send "!translate", wait for bot response, send the phrase to be translated, wait for bot response, send the language code for the phrase to be translated to.
 
+Thank you to the writer of the Googletrans PyPi for powering this function.  https://pypi.org/project/googletrans/
+
 ### !weather
 
 Gives the weather (temperature, pressure, humidity) in any place in the world using the OpenWeather API.
 
 Order: Send "!weather", wait for bot response, send zip code, wait for bot response, send country's 2 letter ISO code (instructions given from bot), receive weather information.
+
+Thank you to the writers behind OpenWeatherAPI for powering this function.  https://openweathermap.org/
 
 ### Other commands
 
