@@ -41,10 +41,9 @@ def getRandomWord():
     word = random.choice(wordsRequest)
     word = word.decode("utf-8")
     return str(word)
-    
 
 def getGuess(msgContent):
-    guess = msgContent[7:len(msgContent)]
+    guess = msgContent[6:len(msgContent)]
     return guess
 
 def fillHMSpaces(word):

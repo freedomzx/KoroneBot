@@ -14,15 +14,10 @@ from definitions import *
 from PyDictionary import PyDictionary
 from random_word import RandomWords
 from googletrans import Translator
-
-commandsList = "```!test, !whoami, !hangman, !weather, !stocks, !wordoftheday, !8ball, !roll, !rtd```"
+from bs4 import BeautifulSoup
 
 wordsURL = "https://www.mit.edu/~ecprice/wordlist.10000"
 wordsRequest = requests.get(wordsURL).content.splitlines()
-
-simpleCommands = {
-    "!help" : commandsList
-}
 
 ballresponses = {
     1: "Uhh, maybe?", 2: "Definitely!", 3: "You probably don't want to know...", 4: "Not happening.",
@@ -33,14 +28,14 @@ ballresponses = {
 }
 
 hangmanLives = {
-    7: "```|---------\n|\n|\n|\n|\n|```",
-    6: "```|---------\n|        |\n|\n|\n|\n|```",
-    5: "```|---------\n|        |\n|        O\n|\n|\n|```",
-    4: "```|---------\n|        |\n|        O\n|        |\n|\n|```",
-    3: "```|---------\n|        |\n|        O\n|      / |\n|\n|```",
-    2: "```|---------\n|        |\n|        O\n|      / | \\\n|\n|```",
-    1: "```|---------\n|        |\n|        O\n|      / | \\\n|       /\n|```",
-    0: "```|---------\n|        |\n|        O\n|      / | \\\n|       / \\\n|```",
+    7: "|---------\n|\n|\n|\n|\n|",
+    6: "|---------\n|        |\n|\n|\n|\n|",
+    5: "|---------\n|        |\n|        O\n|\n|\n|",
+    4: "|---------\n|        |\n|        O\n|        |\n|\n|",
+    3: "|---------\n|        |\n|        O\n|      / |\n|\n|",
+    2: "|---------\n|        |\n|        O\n|      / | \\\n|\n|",
+    1: "|---------\n|        |\n|        O\n|      / | \\\n|       /\n|",
+    0: "|---------\n|        |\n|        O\n|      / | \\\n|       / \\\n|",
 }
 
 r = RandomWords()
