@@ -33,22 +33,6 @@ Causes the bot to insult you!
 
 Order: Send "!insult", get response.
 
-### POKEDEX COMMANDS
-
-## !pokesprite
-
-Gives the sprite for a pokemon, front, back, shiny, or normal colored.
-
-Order: Send "!pokesprite <pokemon name> <front or back> <shiny or default>", get picture.
-
-THANK YOU FOR THE TEAM AT https://pokeapi.co/ FOR POWERING THE POKEDEX!
-
-## !poketype
-
-Gives the typing for a pokemon, as well as its type advantage/disadvantages.
-
-Order: Send "!poketype <pokemon name>", get response.
-
 ### !roll
 
 Roll a number between 1 and a given number.
@@ -72,6 +56,28 @@ Order: Send "!translate", wait for bot response, send the phrase to be translate
 Gives the weather (temperature, pressure, humidity) in any place in the world using the OpenWeather API.
 
 Order: Send "!weather", wait for bot response, send zip code, wait for bot response, send country's 2 letter ISO code (instructions given from bot), receive weather information.
+
+### POKEDEX COMMANDS
+
+## !pokedex
+
+Gives the general pokedex info for a pokemon: name, sprite, typing, abilities, and description.
+
+Order:  Send "!pokedex <pokemon name>
+
+## !pokesprite
+
+Gives the sprite for a pokemon, front, back, shiny, or normal colored.
+
+Order: Send "!pokesprite <pokemon name> <front or back> <shiny or default>", get picture.
+
+## !pokeability
+
+Gives the information for an ability.
+
+Order: Send "!pokesprite <ability name>".  If it is a multi-word ability, please use quotations.  "!pokesprite "<ability name>"
+
+THANK YOU FOR THE TEAM AT https://pokeapi.co/ FOR POWERING THE POKEDEX!
 
 ### Other commands
 
