@@ -59,23 +59,29 @@ Order: Send "!weather", wait for bot response, send zip code, wait for bot respo
 
 ### POKEDEX COMMANDS
 
+## !pokeability
+
+Gives the information for an ability.
+
+Order: Send "!pokesprite <ability name>", get response.
+
 ## !pokedex
 
 Gives the general pokedex info for a pokemon: name, sprite, typing, abilities, and description.
 
 Order:  Send "!pokedex <pokemon name>
 
+## !pokeitem
+
+Gives the information for an item.
+
+Order:  Send "!pokeitem <item name>", get response.
+
 ## !pokesprite
 
 Gives the sprite for a pokemon, front, back, shiny, or normal colored.
 
 Order: Send "!pokesprite <pokemon name> <front or back> <shiny or default>", get picture.
-
-## !pokeability
-
-Gives the information for an ability.
-
-Order: Send "!pokesprite <ability name>".  If it is a multi-word ability, please use quotations.  "!pokesprite "<ability name>"
 
 THANK YOU FOR THE TEAM AT https://pokeapi.co/ FOR POWERING THE POKEDEX!
 
