@@ -33,6 +33,8 @@ Causes the bot to insult you!
 
 Order: Send "!insult", get response.
 
+Thank you to the writer of http://evilinsult.com/ for powering this function.
+
 ### !roll
 
 Roll a number between 1 and a given number.

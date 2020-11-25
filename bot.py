@@ -35,7 +35,8 @@ def get_prefix(bot, message):
 
 extensionList = [
                 'generalCommands',
-                'sqlCommands' 
+                'sqlCommands' ,
+                'pokedexCommands'
                 ]
 
 bot = commands.Bot(command_prefix='!', case_insensitive=True)
