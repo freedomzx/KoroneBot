@@ -1,4 +1,4 @@
-# KoroneBot
+# Kokoro-Kode
 A discord bot featuring small usabilities such as checking the weather via zipcode, a word of the day, checking stock history, and a game of hangman using the discord py api.
 
 # Commands
@@ -33,7 +33,21 @@ Causes the bot to insult you!
 
 Order: Send "!insult", get response.
 
-Thank you to the writer of http://evilinsult.com/ for powering this function.
+### POKEDEX COMMANDS
+
+## !pokesprite
+
+Gives the sprite for a pokemon, front, back, shiny, or normal colored.
+
+Order: Send "!pokesprite <pokemon name> <front or back> <shiny or default>", get picture.
+
+THANK YOU FOR THE TEAM AT https://pokeapi.co/ FOR POWERING THE POKEDEX!
+
+## !poketype
+
+Gives the typing for a pokemon, as well as its type advantage/disadvantages.
+
+Order: Send "!poketype <pokemon name>", get response.
 
 ### !roll
 
@@ -47,23 +61,17 @@ Gets stock information for a certain company's ticker.
 
 Order: Send "!stocks", wait for bot response, send the ticker of the company to analyze stock data for, receive either an error message (cannot be found) or the stock information of the company.
 
-Thank you to the writer of the Yahoo! Finance PyPi for powering this function.  https://pypi.org/project/yfinance/
-
 ### !translate
 
 Translates any given words or sentences into a different language using the Google Translate API.
 
 Order: Send "!translate", wait for bot response, send the phrase to be translated, wait for bot response, send the language code for the phrase to be translated to.
 
-Thank you to the writer of the Googletrans PyPi for powering this function.  https://pypi.org/project/googletrans/
-
 ### !weather
 
 Gives the weather (temperature, pressure, humidity) in any place in the world using the OpenWeather API.
 
 Order: Send "!weather", wait for bot response, send zip code, wait for bot response, send country's 2 letter ISO code (instructions given from bot), receive weather information.
-
-Thank you to the writers behind OpenWeatherAPI for powering this function.  https://openweathermap.org/
 
 ### Other commands
 
