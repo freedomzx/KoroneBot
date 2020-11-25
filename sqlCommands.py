@@ -85,7 +85,7 @@ class SqlCommands(commands.Cog):
                 toQuery = "select command_contents from commands where command_name = '" + str(arg1) + "'"
                 cursor = execute_query(connection, toQuery)
                 commandContent = cursor.fetchall()
-                print(str(commandContent[0])[2:-3])
+                #print(str(commandContent[0])[2:-3])
                 await ctx.send(str(commandContent[0])[2:-3])
 
 def setup(bot):

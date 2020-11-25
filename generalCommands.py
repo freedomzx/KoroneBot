@@ -131,6 +131,13 @@ class GeneralCommands(commands.Cog):
                 await ctx.send("Game over!\n```" + hangmanLives[lives] + "```The word was: " + word + ".")
                 break
 
+    #get insulted!
+    @commands.command(name="insult")
+    async def insult(self, ctx):
+        response = requests.get("https://evilinsult.com/generate_insult.php?lang=en&type=json")
+        hurtfulStuff = response.json()
+        await ctx.send(hurtfulStuff["insult"])
+
     #roll a random # between 1 and a given cap
     @commands.command(name="roll")
     async def roll(self, ctx):
@@ -233,15 +240,6 @@ class GeneralCommands(commands.Cog):
             await ctx.send(embed=embedSend)
         else:
             await ctx.send("Hmm... Couldn't find the specified location's weather.")
-
-    
-
-        
-    
-
-    
-
-
 
 def setup(bot):
     bot.add_cog(GeneralCommands(bot))
