@@ -79,7 +79,10 @@ vtuberChannelIDs = {
     "Artemis": "UCWImOidHDmm0KK20bkF-rSQ",
     "Airani Iofifteen": "UCAoy6rzhSf4ydcYjJw3WoVg",
     "Moona Hoshinova": "UCP0BspO_AMEe3aQqqpo89Dg",
-    "Ayuna Risa": "UCOyYb1c43VlX9rc_lT6NKQw"
+    "Ayunda Risa": "UCOyYb1c43VlX9rc_lT6NKQw",
+    "Amano Pikamee": "UCajhBT4nMrg3DLS-bLL2RCg",
+    "Hikasa Tomoshika": "UC3vzVK_N_SUVKqbX69L_X4g",
+    "Jitomi Monoe": "UCaFhsCKSSS821N-EcWmPkUQ"
 }
 
 # pokemonTypePics = {

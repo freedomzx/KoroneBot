@@ -34,6 +34,28 @@ class YoutubeScrapeCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
+        #catch insufficient arguments
+        if isinstance(error, commands.CommandNotFound):
+            return
+            #ignore not found errors
+
+        elif isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Missing required arguments.  Check README for proper usage.")
+            print("MissingRequiredArgument error")
+            return
+
+        elif isinstance(error, commands.TooManyArguments):
+            await ctx.send("Too many arguments.  Check README for proper usage")
+            print("TooManyArguments error")
+            return
+
+        #previous if/else didn't catch it, its a more obscure error.  print the traceback
+        else:
+            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
+            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+
     @commands.command(name="vtuberLives")
     async def vtuberLives(self, ctx):
         # request = requests.get(base + vtuberChannelIDs["Sakura Miko"] + second)
@@ -49,6 +71,10 @@ class YoutubeScrapeCommands(commands.Cog):
             if checkString in request.text:
                 liveList.append(key)
 
+        if not liveList:
+            await ctx.send("Huh... Looks like no one is live.")
+            return
+
         liveString = ""
         for i in range(len(liveList)):
             liveString += liveList[i]
@@ -58,7 +84,7 @@ class YoutubeScrapeCommands(commands.Cog):
         embedSend = discord.Embed(
             title="List of live VTubers",
         )
-        embedSend.set_thumbnail(url="https://static.wikia.nocookie.net/virtualyoutuber/images/f/f8/Hololive_Logo.png/revision/latest/scale-to-width-down/985?cb=20190623125928")
+        embedSend.set_thumbnail(url="https://w7.pngwing.com/pngs/963/811/png-transparent-youtube-logo-youtube-red-logo-computer-icons-youtube-television-angle-rectangle.png")
         embedSend.add_field(name = "Live", value=liveString)
         await ctx.send(embed=embedSend)
 
