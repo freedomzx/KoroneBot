@@ -95,17 +95,17 @@ Gives the information for an item.
 
 Order:  Send "!pokeitem <item name>", get response.
 
-## !pokenature
-
-Gives the information of a nature.
-
-Order:  Send "!pokenature <nature name>", get response.
-
 ## !pokemove
 
 Gives the information about a move.
 
 Order:  Send "!pokemove <move name>", get response
+
+## !pokenature
+
+Gives the information of a nature.
+
+Order:  Send "!pokenature <nature name>", get response.
 
 ## !pokesprite
 

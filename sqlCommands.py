@@ -7,6 +7,7 @@ import yfinance
 import json
 import requests
 import datetime
+import traceback
 from discord.ext import commands
 from discord.ext.commands import Bot
 

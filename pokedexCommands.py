@@ -204,6 +204,43 @@ class PokedexCommands(commands.Cog):
 
         await ctx.send(embed=embedSend)
 
+    #locations where you can encounter pokemon
+    @commands.command(name="pokelocation")
+    async def pokelocation(self, ctx, arg1):
+        pokemon = arg1.lower()
+
+        url = start + "pokemon/" + pokemon
+        request = requests.get(url)
+        request = request.json()
+        sprite = request["sprites"]["front_default"]
+
+        url += "/encounters"
+        request = requests.get(url)
+        request = request.json()
+
+        embedSend = discord.Embed(
+            title="Locations for: " + pokemon
+        )
+        embedSend.set_thumbnail(url=sprite)
+
+        locationsString = ""
+        for i in range(len(request)):
+            locationsString = ""
+            locationsVersions = ""
+            for j in range(len(request[i]["version_details"])):
+                locationsVersions += request[i]["version_details"][j]["version"]["name"]
+                if j != len(request[i]["version_details"]) - 1:
+                    locationsVersions += ", "
+            locationsString += request[i]["location_area"]["name"].replace("-", " ")
+            embedSend.add_field(name=locationsVersions, value=locationsString, inline=False)
+            
+
+        if not locationsString:
+            await ctx.send("Couldn't find any locations.")
+            return
+
+        await ctx.send(embed=embedSend)
+
     #get the info about a move
     @commands.command(name="pokemove")
     async def pokemove(self, ctx, *args):
