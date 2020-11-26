@@ -26,6 +26,10 @@ import mysql.connector
 from mysql.connector import Error
 import pandas as pd
 
+# import google_auth_oauthlib.flow
+# import googleapiclient.discovery
+# import googleapiclient.errors
+
 # base = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId="
 # second = "&type=video&eventType=live&key=" + googleAPIKey
 
@@ -67,29 +71,35 @@ class YoutubeScrapeCommands(commands.Cog):
         embedSend.add_field(name = "Live", value=liveString)
         await ctx.send(embed=embedSend)
 
-    @commands.command(name="subcount")
-    async def subcount(self, ctx, arg1):
+    @commands.command(name="channelinfo")
+    async def channelinfo(self, ctx, arg1):
         #sub/viewer/video count
-        url = "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" + arg1 + "&key" + googleAPIKey
+        url = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=" + arg1 + "&key=" + googleAPIKey
 
         request = requests.get(url)
         request = request.json()
 
-        subCount = request["items"]["statistics"]["subscriberCount"]
-        viewCount = request["items"]["statistics"]["viewCount"]
-        videoCount = request["items"]["statistics"]["videoCount"]
-        #channel icon
-        url = "https://www.googleapis.com/youtube/v3/channels?part=snippet&id+" + arg1 + "&fields=items%%2Fsnippet%%2Fthumbnails&key=" + googleAPIKey
+        print(request)
+
+        thumbnail = request["items"][0]["snippet"]["thumbnails"]["high"]["url"]
+        channelTitle = request["items"][0]["snippet"]["title"]
+        channelDescription = request["items"][0]["snippet"]["description"]
+        publishDate = request["items"][0]["snippet"]["publishedAt"]
+        subCount = request["items"][0]["statistics"]["subscriberCount"]
+        viewCount = request["items"][0]["statistics"]["viewCount"]
+        videoCount = request["items"][0]["statistics"]["videoCount"]
 
         embedSend = discord.Embed(
-            title="Statistics for channel ID: " + arg1
+            title="Statistics for channel: " + channelTitle
         )
-        embedSend.set_thumbnail(url=url)
-        embedSend.add_field(name="Subscriber count", value=subCount, inline=False)
-        embedSend.add_field(name="Total views", value=viewCount, inline=False)
-        embedSend.add_field(name="Amount of videos", value=videoCount, inline=False)
+        embedSend.set_thumbnail(url=thumbnail)
+        embedSend.add_field(name="Channel Description", value=channelDescription, inline=False)
+        embedSend.add_field(name="Subscriber Count", value=subCount, inline=False)
+        embedSend.add_field(name="Total Views", value=viewCount, inline=False)
+        embedSend.add_field(name="Total Videos", value=videoCount, inline=False)
+        embedSend.add_field(name="Publish Date", value=publishDate, inline=False)
 
-        ctx.send(embed=embedSend)
+        await ctx.send(embed=embedSend)
 
 def setup(bot):
     bot.add_cog(YoutubeScrapeCommands(bot))
