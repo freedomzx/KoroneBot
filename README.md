@@ -1,5 +1,11 @@
 # Kokoro-Kode
-A discord bot featuring small usabilities such as checking the weather via zipcode, a word of the day, checking stock history, and a game of hangman using the discord py api.
+A discord chatbot with a plethora of features: accesses multiple RESTful/RESTless APIs for a variety of information such as weather, stocks, Pokemon info, and more.
+
+Has a web scraping function that checks whether or not some of my favorite YouTubers are live at the time the command is called.
+
+Features MySQL connectivity to story custom commands from users.
+
+Does all of this asynchronously, so no one is tripping over each other during command calls.
 
 # Commands
 
@@ -11,7 +17,7 @@ Order: Send "!addcommand", wait for bot response, respond with command name, wai
 
 ### !define
 
-Asks the bot to connect to the PyDictionary API to define a given (english) word.
+Asks the bot to connect to the PyDictionary API to define a given (english) word.  Done using the PyDictionary API on PyPi.
 
 Order: Send "!define <word>", bot will respond.
 
@@ -23,13 +29,13 @@ Order: Send "eightball <question>", get a response back.
   
 ### !hangman
 
-Starts a game of hangman!  Bot will pick a random word from the RandomWord API, then will send an ASCII image of the hangman board once ready.
+Starts a game of hangman!  Bot will pick a random word from a list of 10000 words, then will send an ASCII image of the hangman board once ready.
 
 Order: Send "!hangman", repeatedly send "!guess <word>" until either the users win or lose.
 
 ### !insult
 
-Causes the bot to insult you!
+Causes the bot to insult you!  Powered by evilinsult.com
 
 Order: Send "!insult", get response.
 
@@ -41,15 +47,21 @@ Order: Send "!roll", wait for bot response, send a number n for the roll range c
 
 ### !stocks
 
-Gets stock information for a certain company's ticker.
+Gets stock information for a certain company's ticker.  Done using the yfinance API on PyPi.
 
 Order: Send "!stocks", wait for bot response, send the ticker of the company to analyze stock data for, receive either an error message (cannot be found) or the stock information of the company.
 
 ### !translate
 
-Translates any given words or sentences into a different language using the Google Translate API.
+Translates any given words or sentences into a different language using the Google Translate API, googletrans on PyPi.
 
 Order: Send "!translate", wait for bot response, send the phrase to be translated, wait for bot response, send the language code for the phrase to be translated to.
+
+### !vtuberLives
+
+Checks who out of the dictionary of VTubers listed in definitions.py are live.  
+
+Order: Send "!vtuberLives", get response (in a few moments).
 
 ### !weather
 
