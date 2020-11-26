@@ -57,11 +57,34 @@ class YoutubeScrapeCommands(commands.Cog):
             
         embedSend = discord.Embed(
             title="List of live VTubers",
-            description=liveString
         )
         embedSend.set_thumbnail(url="https://static.wikia.nocookie.net/virtualyoutuber/images/f/f8/Hololive_Logo.png/revision/latest/scale-to-width-down/985?cb=20190623125928")
+        embedSend.add_field(name = "Live", value=liveString)
         await ctx.send(embed=embedSend)
-            
+
+    @commands.command(name="subcount")
+    async def subcount(self, ctx, arg1):
+        #sub/viewer/video count
+        url = "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=" + arg1 + "&key" + googleAPIKey
+
+        request = requests.get(url)
+        request = request.json()
+
+        subCount = request["items"]["statistics"]["subscriberCount"]
+        viewCount = request["items"]["statistics"]["viewCount"]
+        videoCount = request["items"]["statistics"]["videoCount"]
+        #channel icon
+        url = "https://www.googleapis.com/youtube/v3/channels?part=snippet&id+" + arg1 + "&fields=items%%2Fsnippet%%2Fthumbnails&key=" + googleAPIKey
+
+        embedSend = discord.Embed(
+            title="Statistics for channel ID: " + arg1
+        )
+        embedSend.set_thumbnail(url=url)
+        embedSend.add_field(name="Subscriber count", value=subCount, inline=False)
+        embedSend.add_field(name="Total views", value=viewCount, inline=False)
+        embedSend.add_field(name="Amount of videos", value=videoCount, inline=False)
+
+        ctx.send(embed=embedSend)
 
 def setup(bot):
     bot.add_cog(YoutubeScrapeCommands(bot))

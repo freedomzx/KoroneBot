@@ -77,6 +77,12 @@ Gives the information for an ability.
 
 Order: Send "!pokesprite <ability name>", get response.
 
+## !pokeberry
+
+Gives the specific information on a berry.
+
+Order: Send "!pokeberry <berry name>", get response.
+
 ## !pokedex
 
 Gives the general pokedex info for a pokemon: name, sprite, typing, abilities, and description.
@@ -88,6 +94,18 @@ Order:  Send "!pokedex <pokemon name>
 Gives the information for an item.
 
 Order:  Send "!pokeitem <item name>", get response.
+
+## !pokenature
+
+Gives the information of a nature.
+
+Order:  Send "!pokenature <nature name>", get response.
+
+## !pokemove
+
+Gives the information about a move.
+
+Order:  Send "!pokemove <move name>", get response
 
 ## !pokesprite
 

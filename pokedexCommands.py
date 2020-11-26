@@ -60,6 +60,42 @@ class PokedexCommands(commands.Cog):
         embedSend.add_field(name="Description", value=abilityDesc, inline=False)
         await ctx.send(embed=embedSend)
 
+    #get the specific information abotu a berry
+    @commands.command(name="pokeberry")
+    async def pokeberry(self, ctx, arg1):
+        berry = arg1.lower()
+
+        url = start + "berry/" + berry
+        request = requests.get(url)
+        request = request.json()
+
+        embedSend = discord.Embed(
+            title = "Description of berry: " + berry
+        )
+        embedSend.add_field(name="Growth time", value = request["growth_time"], inline=False)
+        embedSend.add_field(name="Max harvest", value = request["max_harvest"], inline=False)
+        embedSend.add_field(name="Natural Gift power", value = request["natural_gift_power"], inline=False)
+        embedSend.add_field(name="Natural Gift type", value = request["natural_gift_type"]["name"], inline=False)
+        embedSend.add_field(name="Size", value = request["size"], inline=False)
+        embedSend.add_field(name="Smoothness", value = request["smoothness"], inline=False)
+        embedSend.add_field(name="Soil dryness", value = request["soil_dryness"], inline=False)
+        embedSend.add_field(name="Firmness", value = request["firmness"]["name"], inline=False)
+
+        flavorList = ""
+        for i in range(len(request["flavors"])):
+            flavorList += request["flavors"][i]["flavor"]["name"]
+            if i != len(request["flavors"]) -1:
+                flavorList += ", "
+        embedSend.add_field(name="Flavors", value=flavorList, inline=False)
+
+        url = start + "item/" + berry + "-berry"
+        request = requests.get(url)
+        request = request.json()
+        embedSend.set_thumbnail(url=request["sprites"]["default"])
+
+        await ctx.send(embed=embedSend)
+
+
     #general pokemon info: sprite, name, types, description, abilities
     @commands.command(name="pokedex")
     async def pokedex(self, ctx, arg1):
@@ -198,6 +234,27 @@ class PokedexCommands(commands.Cog):
         embedSend.add_field(name="Power", value=request["power"], inline=False)
         embedSend.add_field(name="PP", value=request["pp"], inline=False)
         embedSend.add_field(name="Priority", value=request["priority"], inline=False)
+
+        await ctx.send(embed=embedSend)
+
+    #get characteristics about a nature
+    @commands.command(name="pokenature")
+    async def pokenature(self, ctx, arg1):
+        nature = arg1.lower()
+
+        url = start + "nature/" + nature
+        request = requests.get(url)
+        request = request.json()
+
+        print("Request received for: " + nature)
+
+        embedSend = discord.Embed(
+            title="Description of nature: " + nature
+        )
+        embedSend.add_field(name="Increased stat", value=request["increased_stat"]["name"], inline=False)
+        embedSend.add_field(name="Decreased stat", value=request["decreased_stat"]["name"], inline=False)
+        embedSend.add_field(name="Flavor preference", value=request["likes_flavor"]["name"], inline=False)
+        embedSend.add_field(name="Flavor dislike", value=request["hates_flavor"]["name"], inline=False)
 
         await ctx.send(embed=embedSend)
 

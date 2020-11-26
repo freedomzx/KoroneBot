@@ -76,7 +76,10 @@ vtuberChannelIDs = {
     "Ninomae Ina'nis": "UCMwGHR0BTZuLsmjY_NT5Pwg",
     "Takanashi Kiara": "UCHsx4Hqa-1ORjQTh9TYDhww",
     "Amelia Watson": "UCyl1z3jo3XHR1riLFKG5UAg",
-    "Artemis": "UCWImOidHDmm0KK20bkF-rSQ"
+    "Artemis": "UCWImOidHDmm0KK20bkF-rSQ",
+    "Airani Iofifteen": "UCAoy6rzhSf4ydcYjJw3WoVg",
+    "Moona Hoshinova": "UCP0BspO_AMEe3aQqqpo89Dg",
+    "Ayuna Risa": "UCOyYb1c43VlX9rc_lT6NKQw"
 }
 
 # pokemonTypePics = {
