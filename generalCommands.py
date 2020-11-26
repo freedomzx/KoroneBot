@@ -29,6 +29,7 @@ class GeneralCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    #catch errors
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         #catch insufficient arguments

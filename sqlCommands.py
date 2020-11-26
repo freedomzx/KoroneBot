@@ -32,28 +32,6 @@ class SqlCommands(commands.Cog):
         self.bot = bot
     #for custom commands via sql
 
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        #catch insufficient arguments
-        if isinstance(error, commands.CommandNotFound):
-            return
-            #ignore not found errors
-
-        elif isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("Missing required arguments.  Check README for proper usage.")
-            print("MissingRequiredArgument error")
-            return
-
-        elif isinstance(error, commands.TooManyArguments):
-            await ctx.send("Too many arguments.  Check README for proper usage")
-            print("TooManyArguments error")
-            return
-
-        #previous if/else didn't catch it, its a more obscure error.  print the traceback
-        else:
-            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-
     #add a custom command to the DB
     @commands.command(name="addCommand")
     async def addCommand(self, ctx):
