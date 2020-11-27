@@ -82,7 +82,8 @@ vtuberChannelIDs = {
     "Ayunda Risa": "UCOyYb1c43VlX9rc_lT6NKQw",
     "Amano Pikamee": "UCajhBT4nMrg3DLS-bLL2RCg",
     "Hikasa Tomoshika": "UC3vzVK_N_SUVKqbX69L_X4g",
-    "Jitomi Monoe": "UCaFhsCKSSS821N-EcWmPkUQ"
+    "Jitomi Monoe": "UCaFhsCKSSS821N-EcWmPkUQ",
+    "Inuyama Tamaki": "UC8NZiqKx6fsDT3AVcMiVFyA"
 }
 
 # pokemonTypePics = {

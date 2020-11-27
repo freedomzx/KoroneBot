@@ -46,6 +46,7 @@ class YoutubeScrapeCommands(commands.Cog):
 
         await ctx.send("Scraping through the channels of the vtuber list I have, give me a few moments...")
 
+        # check for {"text":" watching"}
         checkString = "{\"text\":\" watching\"}"
         liveList = []
         
@@ -65,10 +66,11 @@ class YoutubeScrapeCommands(commands.Cog):
                 liveString += ", "
             
         embedSend = discord.Embed(
-            title="List of live VTubers",
+            title="Currently Live",
+            description=liveString
         )
         embedSend.set_thumbnail(url="https://w7.pngwing.com/pngs/963/811/png-transparent-youtube-logo-youtube-red-logo-computer-icons-youtube-television-angle-rectangle.png")
-        embedSend.add_field(name = "Live", value=liveString)
+        #embedSend.add_field(name = "Live", value=liveString)
         await ctx.send(embed=embedSend)
 
     @commands.command(name="channelinfo")

@@ -40,12 +40,17 @@ class GeneralCommands(commands.Cog):
 
         elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("Missing required arguments.  Check README for proper usage.")
-            print("MissingRequiredArgument error")
+            print("MissingRequiredArgument error in command {}".format(ctx.command))
             return
 
         elif isinstance(error, commands.TooManyArguments):
-            await ctx.send("Too many arguments.  Check README for proper usage")
-            print("TooManyArguments error")
+            await ctx.send("Too many arguments.  Check README for proper usage.")
+            print("TooManyArguments error in command {}".format(ctx.command))
+            return
+
+        elif isinstance(error, commands.CommandInvokeError):
+            await ctx.send("Error in decoding the json.  Check your syntax.")
+            print("JSONDecodeError in command {}".format(ctx.command))
             return
 
         #previous if/else didn't catch it, its a more obscure error.  print the traceback
