@@ -1,4 +1,4 @@
-# Kokoro-Kode
+# KoroneBot
 A discord chatbot with a plethora of features: accesses multiple RESTful/RESTless APIs for a variety of information such as weather, stocks, Pokemon info, and more.
 
 Has a web scraping function that checks whether or not some of my favorite YouTubers are live at the time the command is called.
@@ -9,65 +9,77 @@ Does all of this asynchronously, so no one is tripping over each other during co
 
 # Commands
 
-### !addcommand
+## !addcommand
 
 Adds a new custom command to be stored by the bot in a MySQL server.
 
 Order: Send "!addcommand", wait for bot response, respond with command name, wait for bot response, respond with command content, command will be stored.
 
-### !define
+## !channelinfo
+
+Gets a youtube channel's information based on a given channel ID.
+
+Order: Send "!channelinfo <channel id>", get response.
+
+## !define
 
 Asks the bot to connect to the PyDictionary API to define a given (english) word.  Done using the PyDictionary API on PyPi.
 
 Order: Send "!define <word>", bot will respond.
 
-### !eightball
+## !eightball
 
 Asks the bot a question, get a response back.
 
 Order: Send "eightball <question>", get a response back.
   
-### !hangman
+## !hangman
 
 Starts a game of hangman!  Bot will pick a random word from a list of 10000 words, then will send an ASCII image of the hangman board once ready.
 
 Order: Send "!hangman", repeatedly send "!guess <word>" until either the users win or lose.
 
-### !insult
+## !insult
 
 Causes the bot to insult you!  Powered by evilinsult.com
 
 Order: Send "!insult", get response.
 
-### !roll
+## !roll
 
 Roll a number between 1 and a given number.
 
 Order: Send "!roll", wait for bot response, send a number n for the roll range cap, receive a random number from 1 to n.
 
-### !stocks
+## !stocks
 
 Gets stock information for a certain company's ticker.  Done using the yfinance API on PyPi.
 
 Order: Send "!stocks", wait for bot response, send the ticker of the company to analyze stock data for, receive either an error message (cannot be found) or the stock information of the company.
 
-### !translate
+## !translate
 
 Translates any given words or sentences into a different language using the Google Translate API, googletrans on PyPi.
 
 Order: Send "!translate", wait for bot response, send the phrase to be translated, wait for bot response, send the language code for the phrase to be translated to.
 
-### !vtuberLives
+## !vtuberLives
 
 Checks who out of the dictionary of VTubers listed in definitions.py are live.  
 
-Order: Send "!vtuberLives", get response (in a few moments).
+Order: Send "!vtuberLives", get response (in a few moments).  Send "yes" or "no" depending on whether or not you want their broadcast links.
 
-### !weather
+## !weather
 
 Gives the weather (temperature, pressure, humidity) in any place in the world using the OpenWeather API.
 
 Order: Send "!weather", wait for bot response, send zip code, wait for bot response, send country's 2 letter ISO code (instructions given from bot), receive weather information.
+
+## !whoami
+
+Gives the general information about your discord account.
+
+Order: Send "!whoami", get response.
 
 ### POKEDEX COMMANDS
 
@@ -95,6 +107,12 @@ Gives the information for an item.
 
 Order:  Send "!pokeitem <item name>", get response.
 
+## !pokelocation
+
+Gives the information on where you can find a pokemon in the wild.
+
+Order:  Send "!pokelocation <pokemon name>", get response.
+
 ## !pokemove
 
 Gives the information about a move.
@@ -115,6 +133,6 @@ Order: Send "!pokesprite <pokemon name> <front or back> <shiny or default>", get
 
 THANK YOU FOR THE TEAM AT https://pokeapi.co/ FOR POWERING THE POKEDEX!
 
-### Other commands
+## Other commands
 
 Other commands may be stored from other users using the !addcommand function, so ask around and see what exists!

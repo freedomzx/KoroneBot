@@ -48,10 +48,10 @@ class GeneralCommands(commands.Cog):
             print("TooManyArguments error in command {}".format(ctx.command))
             return
 
-        elif isinstance(error, commands.CommandInvokeError):
-            await ctx.send("Error in decoding the json.  Check your syntax.")
-            print("JSONDecodeError in command {}".format(ctx.command))
-            return
+        # elif isinstance(error, commands.CommandInvokeError):
+        #     await ctx.send("Error in decoding the json.  Check your syntax.")
+        #     print("JSONDecodeError in command {}".format(ctx.command))
+        #     return
 
         #previous if/else didn't catch it, its a more obscure error.  print the traceback
         else:
@@ -269,6 +269,21 @@ class GeneralCommands(commands.Cog):
             await ctx.send(embed=embedSend)
         else:
             await ctx.send("Hmm... Couldn't find the specified location's weather.")
+
+    @commands.command(name="whoami")
+    async def weather(self, ctx):
+        user = ctx.message.author
+
+        embedSend = discord.Embed(
+            title="About {user}".format(user = user.name)
+        )
+        embedSend.set_thumbnail(url=user.avatar_url)
+        embedSend.add_field(name="Server Join Date", value=user.joined_at, inline=False)
+        embedSend.add_field(name="Discord Account Creation Date", value=user.created_at, inline=False)
+        embedSend.add_field(name="User ID", value=user.id, inline=False)
+        embedSend.add_field(name="Username Discriminator", value=user.discriminator, inline=False)
+
+        await ctx.send(embed=embedSend)
 
 def setup(bot):
     bot.add_cog(GeneralCommands(bot))
