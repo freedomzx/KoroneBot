@@ -33,49 +33,45 @@ import pandas as pd
 # base = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId="
 # second = "&type=video&eventType=live&key=" + googleAPIKey
 
-base = "https://www.youtube.com/channel/"
-
 class YoutubeScrapeCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(name="vtuberLives")
     async def vtuberLives(self, ctx):
-        # request = requests.get(base + vtuberChannelIDs["Sakura Miko"] + second)
-        # request = request.json()
-
         await ctx.send("Scraping through the channels in the vtuber list I have, give me a few moments...")
         print("Request for: live VTubers")
 
         # check for {"text":" watching"}
-        checkString = "{\"text\":\" watching\"}"
-        liveList = []
-        
         # make it look like the bot is typing while it searches up all the live list
+        liveDict = {}
         async with ctx.channel.typing():
-            for key in vtuberChannelIDs:
-                request = requests.get(base + vtuberChannelIDs[key])
-                if checkString in request.text:
-                    liveList.append(key)
-            # if no one is live just say no one is live then return
-            if not liveList:
-                await ctx.send("Huh... Looks like no one is live.")
+            base = "https://www.youtube.com/channel/"
+            checkString = "{\"text\":\" watching\"}"
+            embedSend = discord.Embed(
+                title="Currently Live",
+            )
+            embedSend.set_thumbnail(url="https://w7.pngwing.com/pngs/963/811/png-transparent-youtube-logo-youtube-red-logo-computer-icons-youtube-television-angle-rectangle.png")
+            #go through all the sections of vtubers, check if anyone in any section is streaming.  if they are, add that field + the streamer into the embed
+            at_least_one = False
+            for group, vtubers in vtuberChannelIDs.items():
+                sectionLiveList = []
+                for key in vtubers:
+                    request = requests.get(base + vtubers[key])
+                    if checkString in request.text:
+                        sectionLiveList.append(key)
+                        liveDict[key] = vtubers[key]
+                if sectionLiveList:
+                    embedSend.add_field(name=group, value=", ".join(sectionLiveList), inline=False)
+                    at_least_one = True
+            #if nobody at all is streaming, say so and return
+            if at_least_one:
+                await ctx.send(embed=embedSend)
+            else:
+                await ctx.send("Looks like no one on my list is live.")
                 return
-            ##put the things in the currently live list into a string to send
-            liveString = ""
-            for i in range(len(liveList)):
-                liveString += liveList[i]
-                if i != len(liveList)-1:
-                    liveString += ", "
-        
-        embedSend = discord.Embed(
-            title="Currently Live",
-            description=liveString
-        )
-        embedSend.set_thumbnail(url="https://w7.pngwing.com/pngs/963/811/png-transparent-youtube-logo-youtube-red-logo-computer-icons-youtube-television-angle-rectangle.png")
-        #embedSend.add_field(name = "Live", value=liveString) 
-
-        await ctx.send(embed=embedSend)
+                
+        #if they want the links, get it from the liveDict dictioanry
         await ctx.send("Do you want the links to the streams? (yes/no)")
 
         def check(message):
@@ -86,13 +82,12 @@ class YoutubeScrapeCommands(commands.Cog):
             return
         elif msg.content.lower() == "yes":
             liveLinks = ""
-            for i in liveList:
-                liveLinkURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId={channelId}&eventType=live&type=video&key={YOUR_API_KEY}".format(channelId = vtuberChannelIDs[i], YOUR_API_KEY = googleAPIKey)
+            for vtuber, channelId in liveDict.items():
+                liveLinkURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId={channelId}&eventType=live&type=video&key={YOUR_API_KEY}".format(channelId=channelId, YOUR_API_KEY=googleAPIKey)
                 videoRequest = requests.get(liveLinkURL)
                 videoRequest = videoRequest.json()
                 videoURL = "https://www.youtube.com/watch?v={videoID}".format(videoID = videoRequest["items"][0]["id"]["videoId"])
                 liveLinks += videoURL + "\n"
-                #print(i + ": " + vtuberChannelIDs[i])
             await ctx.send(liveLinks)
 
     @commands.command(name="channelinfo")
