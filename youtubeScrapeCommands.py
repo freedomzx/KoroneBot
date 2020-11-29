@@ -17,6 +17,8 @@ import definitions
 from definitions import *
 import commandhelpers
 from commandhelpers import *
+import helpStrings
+from helpStrings import *
 
 from PyDictionary import PyDictionary
 from random_word import RandomWords
