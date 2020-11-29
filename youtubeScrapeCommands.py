@@ -37,7 +37,7 @@ class YoutubeScrapeCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="vtuberLives")
+    @commands.command(name="vtuberLives", help = vtuberlivesHelp, brief = vtuberlivesHelpShort)
     async def vtuberLives(self, ctx):
         await ctx.send("Scraping through the channels in the vtuber list I have, give me a few moments...")
         print("Request for: live VTubers")
@@ -70,7 +70,7 @@ class YoutubeScrapeCommands(commands.Cog):
             else:
                 await ctx.send("Looks like no one on my list is live.")
                 return
-                
+
         #if they want the links, get it from the liveDict dictioanry
         await ctx.send("Do you want the links to the streams? (yes/no)")
 
@@ -90,7 +90,7 @@ class YoutubeScrapeCommands(commands.Cog):
                 liveLinks += videoURL + "\n"
             await ctx.send(liveLinks)
 
-    @commands.command(name="channelinfo")
+    @commands.command(name="channelinfo", help = channelinfoHelp, brief = channelinfoHelpShort)
     async def channelinfo(self, ctx, arg1):
         #sub/viewer/video count
         url = "https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=" + arg1 + "&key=" + googleAPIKey

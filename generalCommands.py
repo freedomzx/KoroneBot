@@ -59,7 +59,7 @@ class GeneralCommands(commands.Cog):
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
     #defines a single word
-    @commands.command(name="define")
+    @commands.command(name="define", help=defineHelp, brief = defineHelpShort)
     async def define(self, ctx, arg1):
         definition = dictionary.meaning(arg1)
         message = ""
@@ -83,12 +83,12 @@ class GeneralCommands(commands.Cog):
         #there was a bs4 error here, if it happens again go edit C:\Users\<me>\AppData\Local\Programs\Python\Python38-32\lib\site-packages\PyDictionary\utils.py
 
     #randomly responds to a question given a short list of answers
-    @commands.command(name="eightBall")
+    @commands.command(name="eightBall", help = eightBallHelp, brief = eightBallHelpShort)
     async def eightBall(self, ctx, *args):
         if not args:
             await ctx.send("Hueh? Add a question after the command!")
         else:
-            num = random.randint(1, 18)
+            num = random.randint(1, 19)
             message = ""
             for i in args:
                 message = message + i + " "
@@ -100,18 +100,8 @@ class GeneralCommands(commands.Cog):
             embedSend.set_thumbnail(url="https://magic-8ball.com/assets/images/magicBallStart.png")
             await ctx.send(embed=embedSend)
 
-    #a list of commands
-    @commands.command(name="listCommands")
-    async def listCommands(self, ctx):
-        listOfCommands = "addCommand, define, hangman, insult, roll, rtd, stocks, translate, weather"
-        embedSend = discord.Embed(
-            title="This is the list of commands.",
-            description=listOfCommands + "\n\n Please use a prefix of '1' before every command.  Also, there are a number of custom commands accessible through the !custom command."
-        )
-        await ctx.send(embed=embedSend)
-
     #a game of hangman
-    @commands.command(name="hangman")
+    @commands.command(name="hangman", help = hangmanHelp, brief = hangmanHelpShort)
     async def hangman(self, ctx):
         await ctx.send("A new game of hangman is starting! To make a guess of a letter or the entire word, send \"guess <guess>\".")
         word = commandhelpers.getRandomWord().lower()
@@ -161,14 +151,14 @@ class GeneralCommands(commands.Cog):
                 break
 
     #get insulted!
-    @commands.command(name="insult")
+    @commands.command(name="insult", help = insultHelp, brief = insultHelpShort)
     async def insult(self, ctx):
         response = requests.get("https://evilinsult.com/generate_insult.php?lang=en&type=json")
         hurtfulStuff = response.json()
         await ctx.send(hurtfulStuff["insult"])
 
     #roll a random # between 1 and a given cap
-    @commands.command(name="roll")
+    @commands.command(name="roll", help = rollHelp, brief = rollHelpShort)
     async def roll(self, ctx):
         await ctx.send("Please enter the cap for the roll range.")
         try:
@@ -190,7 +180,7 @@ class GeneralCommands(commands.Cog):
             await ctx.send("Invalid input.")
 
     #stock info over past 5 days for a company
-    @commands.command(name="stocks")
+    @commands.command(name="stocks", help = stocksHelp, brief = stocksHelpShort)
     async def stocks(self, ctx):
         #regular check, check consistency between author and channel
         def check(message):
@@ -211,7 +201,7 @@ class GeneralCommands(commands.Cog):
             await ctx.send("```" + dataframe + "```")
 
     #translate a sentence into a language
-    @commands.command(name="translate")
+    @commands.command(name="translate", help = translateHelp, brief = translateHelpShort)
     async def translate(self, ctx):
         #regular check, check consistency between author and channel
         def check(message):
@@ -235,8 +225,8 @@ class GeneralCommands(commands.Cog):
         except AttributeError:
             await ctx.send("Hmm... Something didn't work.  Check your grammar, maybe?  This API fails without proper grammar for whatever reason.")
 
-    #get the weather of a certain place
-    @commands.command(name="weather")
+     #get the weather of a certain place
+    @commands.command(name="weather", help = weatherHelp, brief = weatherHelpShort)
     async def weather(self, ctx):
         #regular check, check consistency between author and channel
         def check(message):
@@ -270,8 +260,8 @@ class GeneralCommands(commands.Cog):
         else:
             await ctx.send("Hmm... Couldn't find the specified location's weather.")
 
-    @commands.command(name="whoami")
-    async def weather(self, ctx):
+    @commands.command(name="whoami", help = whoamiHelp, brief = whoamiHelpShort)
+    async def whoami(self, ctx):
         user = ctx.message.author
 
         embedSend = discord.Embed(

@@ -34,7 +34,7 @@ class SqlCommands(commands.Cog):
     #for custom commands via sql
 
     #add a custom command to the DB
-    @commands.command(name="addCommand")
+    @commands.command(name="addCommand", help = addcommandHelp, brief = addcommandHelpShort)
     async def addCommand(self, ctx):
         #regualr check to see if channel and author matches up
         def check(message):
@@ -76,7 +76,7 @@ class SqlCommands(commands.Cog):
         await ctx.send(embed=embedSend)
 
     #browses the sql database and looks for a given custom command
-    @commands.command(name="custom")
+    @commands.command(name="custom", help = customHelp, brief = customHelpShort)
     async def custom(self, ctx, arg1):
         cursor = execute_query(connection, "select command_name from commands")
         commandNames = cursor.fetchall()

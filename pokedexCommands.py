@@ -33,7 +33,7 @@ class PokedexCommands(commands.Cog):
         self.bot = bot
 
     #get the typing info of a pokemon: their type and their weaknesses and strengths
-    @commands.command(name="pokeability")
+    @commands.command(name="pokeability", help = pokeabilityHelp, brief = pokeabilityHelpShort)
     async def pokeability(self, ctx, *args):
         abilityName = ""
         for i in range(len(args)):
@@ -65,7 +65,7 @@ class PokedexCommands(commands.Cog):
         #     await ctx.send("Couldn't find " + abilityName + ".  Check your spelling, perhaps?")
 
     #get the specific information abotu a berry
-    @commands.command(name="pokeberry")
+    @commands.command(name="pokeberry", help = pokeberryHelp, brief = pokeberryHelpShort)
     async def pokeberry(self, ctx, arg1):
         berry = arg1.lower()
 
@@ -102,7 +102,7 @@ class PokedexCommands(commands.Cog):
 
 
     #general pokemon info: sprite, name, types, description, abilities
-    @commands.command(name="pokedex")
+    @commands.command(name="pokedex", help = pokedexHelp, brief = pokedexHelpShort)
     async def pokedex(self, ctx, arg1):
         pokemon = arg1.lower()
         url = start + "pokemon/" + pokemon
@@ -154,7 +154,7 @@ class PokedexCommands(commands.Cog):
         await ctx.send(embed=embedSend)
 
     #get the info about an item
-    @commands.command(name="pokeitem")
+    @commands.command(name="pokeitem", help = pokeitemHelp, brief = pokeitemHelpShort)
     async def pokeitem(self, ctx, *args):
         itemName = ""
         for i in range(len(args)):
@@ -205,7 +205,7 @@ class PokedexCommands(commands.Cog):
         await ctx.send(embed=embedSend)
 
     #locations where you can encounter pokemon
-    @commands.command(name="pokelocation")
+    @commands.command(name="pokelocation", help = pokelocationHelp, brief = pokelocationHelpShort)
     async def pokelocation(self, ctx, arg1):
         pokemon = arg1.lower()
 
@@ -242,7 +242,7 @@ class PokedexCommands(commands.Cog):
         await ctx.send(embed=embedSend)
 
     #get the info about a move
-    @commands.command(name="pokemove")
+    @commands.command(name="pokemove", help = pokemoveHelp, brief = pokemoveHelpShort)
     async def pokemove(self, ctx, *args):
         moveName = ""
         for i in range(len(args)):
@@ -289,7 +289,7 @@ class PokedexCommands(commands.Cog):
         await ctx.send(embed=embedSend)
 
     #get characteristics about a nature
-    @commands.command(name="pokenature")
+    @commands.command(name="pokenature", help = pokenatureHelp, brief = pokenatureHelpShort)
     async def pokenature(self, ctx, arg1):
         nature = arg1.lower()
 
@@ -309,7 +309,7 @@ class PokedexCommands(commands.Cog):
         await ctx.send(embed=embedSend)
 
     #get the back/front sprite for a pokemon
-    @commands.command(name="pokesprite")
+    @commands.command(name="pokesprite", help = pokespriteHelp, brief = pokespriteHelpShort)
     async def pokesprite(self, ctx, arg1, arg2, arg3):
         pokemon = arg1.lower()
         position = arg2.lower()
