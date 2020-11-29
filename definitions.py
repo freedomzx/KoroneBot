@@ -46,8 +46,7 @@ activityList = [
     discord.Activity(type=discord.ActivityType.watching, name="some degenerate stuff!"), discord.Game(name="the system!"),
     discord.Game(name="Mogeko Castle!"), discord.Activity(type=discord.ActivityType.watching, name="Yakuza Shenanigans!"),
     discord.Activity(type=discord.ActivityType.listening, name="Baka Mitai!"), discord.Activity(type=discord.ActivityType.listening, name="Polkadot Stingray!"),
-    discord.Game(name="Yakuza 0!"), discord.Game(name="Fire Emblem: Three Houses!"), discord.Game(name="Street Fighter V!"), discord.Game("Half-Life 3!"),
-    discord.Game("Under Night In-Birth EXE:Late[cl-r]!"), discord.Game("Guilty Gear Strive!"), discord.Game("Super Smash Brothers Ultimate!"), discord.Game("Tekken 7!")
+    discord.Game(name="Yakuza 0!"), discord.Game(name="Fire Emblem: Three Houses!"), discord.Game(name="Fighting Games!"), discord.Game("Half-Life 3!"),
 ]
 
 #dictioanry of dictionaries containing vtuber channel IDs

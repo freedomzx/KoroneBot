@@ -50,11 +50,15 @@ if __name__ == "__main__":
         bot.load_extension(extension)
 
 #background task to change status every 30 seconds. can be changed to do other stuff too
-@tasks.loop(seconds=30)
+activityIterator = 0
+
+@tasks.loop(seconds=5)
 async def background_task():
-    #print("Bot Status Change (30 Seconds)")
-    randomIndex = random.randint(1, len(activityList)-1)
-    await bot.change_presence(status = discord.Status.do_not_disturb, activity=activityList[randomIndex])
+    global activityIterator
+    await bot.change_presence(status = discord.Status.do_not_disturb, activity=activityList[activityIterator])
+    activityIterator += 1
+    if activityIterator == len(activityList):
+        activityIterator = 0
 
 @bot.event
 async def on_ready():
@@ -62,6 +66,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------------------')
+    await bot.change_presence(status = discord.Status.do_not_disturb)
     background_task.start()
 
 
