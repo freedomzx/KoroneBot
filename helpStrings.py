@@ -1,3 +1,5 @@
+#generalCommands
+
 defineHelp = """
     To use this command, send: \"!help <single english word to define>\".  
     The bot will then either define the word, or tell you that it cannot find a definition for the given word.
@@ -51,7 +53,7 @@ weatherHelp = """
     The bot will then ask for the zipcode of the place you want the weather for, which you should then enter.
     The bot will then ask for the country code of the place you want the weather for, which can be found at https://countrycode.org/.
     The bot will then send a GET request to http://api.openweathermap.org/data/2.5/weather?zip=, with the endpoints being filled in based on the given information.
-    The weather from that area, if found, will then be send.
+    The weather from that area, if found, will then be sent.
 """
 weatherHelpShort = "\"!weather\", then send zipcode, then send country code."
 
@@ -60,6 +62,8 @@ whoamiHelp = """
     The bot will then send you your discord account's join date for the current server, discord account creation date, user ID, and username discriminator (the 4 numbers after your username.)
 """
 whoamiHelpShort = "\"!whoami\""
+
+#sqlCommands
 
 addcommandHelp = """
     To use this command, send \"!addcommand\".
@@ -75,6 +79,14 @@ customHelp = """
 """
 customHelpShort = "\"!custom <custom command name>\""
 
+customListHelp = """
+    To use this command, send \"!customList\".
+    The bot will give a list of the names of all the custom commands it has.
+"""
+customListHelpShort = "\"!customList\""
+
+#youtubeScrapeCommands
+
 vtuberlivesHelp = """
     To use this command, send \"!vtuberLives\".
     The bot will then check which of the vtubers on its list are live, then sends all the live vtubers, organized by affiliation.
@@ -87,6 +99,8 @@ channelinfoHelp = """
     The bot will then send the channel's title, description, publish date, sub count, view count, and video count, if found.
 """
 channelinfoHelpShort = "\"!channelinfo <youtube channel id>\""
+
+#pokedexCommands
 
 pokeabilityHelp = """
     To use this command, send \"!pokeability <ability name>\".

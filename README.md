@@ -7,132 +7,176 @@ Features MySQL connectivity to story custom commands from users.
 
 Does all of this asynchronously, so no one is tripping over each other during command calls.
 
-# Commands
+All of the subsequent explanations for each command can be found by using "!help <command name>".  A brief overview of each command can also be found by saying "!help".
 
-## !addcommand
+The explanations are grouped by the class found in each of their files.
 
-Adds a new custom command to be stored by the bot in a MySQL server.
-
-Order: Send "!addcommand", wait for bot response, respond with command name, wait for bot response, respond with command content, command will be stored.
-
-## !channelinfo
-
-Gets a youtube channel's information based on a given channel ID.
-
-Order: Send "!channelinfo <channel id>", get response.
+# General Commands (generalCommands.py)
 
 ## !define
 
-Asks the bot to connect to the PyDictionary API to define a given (english) word.  Done using the PyDictionary API on PyPi.
+To use this command, send: "!help <single english word to define>".  
 
-Order: Send "!define <word>", bot will respond.
+The bot will then either define the word, or tell you that it cannot find a definition for the given word.
 
-## !eightball
+Thank you PyDictionary.
 
-Asks the bot a question, get a response back.
+## !eightBall
 
-Order: Send "eightball <question>", get a response back.
-  
+To use this command, send: "!eightBall <a question>".
+
+The bot will then give you a random response to that question.
+
 ## !hangman
 
-Starts a game of hangman!  Bot will pick a random word from a list of 10000 words, then will send an ASCII image of the hangman board once ready.
+To use this command, send "!hangman".
 
-Order: Send "!hangman", repeatedly send "!guess <word>" until either the users win or lose.
+The bot will then start a game of hangman, giving the slots for a word and sending an ASCII picture of a hangman board.
+
+To guess a letter or the entire word, send "guess <guess>".
+
+The game will proceed until the man is dead or the word is found.  You have 7 lives!
 
 ## !insult
 
-Causes the bot to insult you!  Powered by evilinsult.com
+To use this command, send "!insult".
 
-Order: Send "!insult", get response.
+The bot will then send a GET request to https://evilinsult.com/generate_insult.php?lang=en&type=json and give a random insult from there.
 
 ## !roll
 
-Roll a number between 1 and a given number.
+To use this command, send "!roll".
 
-Order: Send "!roll", wait for bot response, send a number n for the roll range cap, receive a random number from 1 to n.
+Then, the bot will ask what the high bound of the roll should be.
+
+The bot will then generate a random number from 1-n, n being the number given from the previous question.
 
 ## !stocks
 
-Gets stock information for a certain company's ticker.  Done using the yfinance API on PyPi.
+To use this command, send "!stocks".
 
-Order: Send "!stocks", wait for bot response, send the ticker of the company to analyze stock data for, receive either an error message (cannot be found) or the stock information of the company.
+The bot will then ask for the company's ticker, which you should then enter.
 
-## !translate
-
-Translates any given words or sentences into a different language using the Google Translate API, googletrans on PyPi.
-
-Order: Send "!translate", wait for bot response, send the phrase to be translated, wait for bot response, send the language code for the phrase to be translated to.
-
-## !vtuberLives
-
-Checks who out of the dictionary of VTubers listed in definitions.py are live.  
-
-Order: Send "!vtuberLives", get response (in a few moments).  Send "yes" or "no" depending on whether or not you want their broadcast links.
+The bot will then send stock information over the last 5 days for the given company.
 
 ## !weather
 
-Gives the weather (temperature, pressure, humidity) in any place in the world using the OpenWeather API.
+To use this command, send "!weather".
 
-Order: Send "!weather", wait for bot response, send zip code, wait for bot response, send country's 2 letter ISO code (instructions given from bot), receive weather information.
+The bot will then ask for the zipcode of the place you want the weather for, which you should then enter.
+
+The bot will then ask for the country code of the place you want the weather for, which can be found at https://countrycode.org/.
+
+The bot will then send a GET request to http://api.openweathermap.org/data/2.5/weather?zip=, with the endpoints being filled in based on the given information.
+
+The weather from that area, if found, will then be sent.
 
 ## !whoami
 
-Gives the general information about your discord account.
+To use this command, send "!whoami".
 
-Order: Send "!whoami", get response.
+The bot will then send you your discord account's join date for the current server, discord account creation date, user ID, and username discriminator (the 4 numbers after your username.)
 
-### POKEDEX COMMANDS
+# SQL Commands (sqlCommands.py)
+
+## !addcommand
+
+To use this command, send "!addcommand".
+
+The bot will then ask for the title of your command, which you should then send.  (No spaces or the ! prefix).
+
+The bot will then ask for the contents of your command, which you should then send.  (Less then the discord character limit).
+
+The bot will then inform you that the command has been added, if the title is not already in use.
+
+## !custom
+
+To use this command, send "!custom <custom command name>".
+
+The bot will then check through the SQL database and see if the command exists, then sends the contents if it does exist.
+
+## !customList
+
+To use this command, send "!customList".
+
+The bot will give a list of the names of all the custom commands it has.
+
+# Youtube Info Commands (youtubeScrapeCommands.py)
+
+## !vtuberLives
+
+To use this command, send "!vtuberLives".
+
+The bot will then check which of the vtubers on its list are live, then sends all the live vtubers, organized by affiliation.
+
+The bot will then ask if you want the links to the streams, which you should then answer "yes" or "no" to.
+
+## !channelinfo
+
+To use this command, send "!channelinfo <youtube channel id>".
+
+The bot will then send the channel's title, description, publish date, sub count, view count, and video count, if found.
+
+# Pokedex Commands (pokedexCommands.py)
 
 ## !pokeability
 
-Gives the information for an ability.
+To use this command, send "!pokeability <ability name>".
 
-Order: Send "!pokesprite <ability name>", get response.
+The bot will then send a GET request the pokiapi ability endpoint and attempt to search for the given ability.
 
 ## !pokeberry
 
-Gives the specific information on a berry.
+To use this command, send "!pokeberry <berry name>".
 
-Order: Send "!pokeberry <berry name>", get response.
+The bot will then send a GET request to the pokeapi berry endpoint.
+
+If found, a berry's growth time, max harvest number, natural gift power + type, size, smoothness, soil dryness, and firmness will be sent.
 
 ## !pokedex
 
-Gives the general pokedex info for a pokemon: name, sprite, typing, abilities, and description.
+To use this command, send "!pokedex <pokemon name>".
 
-Order:  Send "!pokedex <pokemon name>
+The bot will then send a GET request to the pokeapi pokemon endpoint.
+
+If found, a pokemon's abilities, types, sprite, flavor text, and held items will be returned.
 
 ## !pokeitem
 
-Gives the information for an item.
+To use this command, send "!pokeitem <item name>".
 
-Order:  Send "!pokeitem <item name>", get response.
+The bot will then send a GET request to the pokeapi item endpoint.
+
+If found, an item's effect, flavor text, and pokemon who hold the item will be returned.
 
 ## !pokelocation
 
-Gives the information on where you can find a pokemon in the wild.
+To use this command, send "!pokelocation <pokemon name>".
 
-Order:  Send "!pokelocation <pokemon name>", get response.
+The bot will then send a GET request to the pokeapi location endpoint.
+
+A pokemon's location will be found and returned.
 
 ## !pokemove
 
-Gives the information about a move.
+To use this command, send "!pokemove <move name>".
 
-Order:  Send "!pokemove <move name>", get response
+The bot will then send a GET request to the pokeapi moves endpoint.
+
+A pokemon's move flavor text, PP, damage class, accuracy, type, power, priority, and effect will be returned.
 
 ## !pokenature
 
-Gives the information of a nature.
+To use this command, send "!pokenature <nature name>".
 
-Order:  Send "!pokenature <nature name>", get response.
+The bot will then send a GET request to the pokeapi nature endpoint.
+
+A nature's increased/decreased stats and flavor likes/dislikes will be returned, as well as its description.
 
 ## !pokesprite
 
-Gives the sprite for a pokemon, front, back, shiny, or normal colored.
+To use this command, send "!pokesprite <pokemon name> <back or front> <default or shiny>".
 
-Order: Send "!pokesprite <pokemon name> <front or back> <shiny or default>", get picture.
+The bot will then send a GET request to the pokeapi pokemon endpoint.
 
-THANK YOU FOR THE TEAM AT https://pokeapi.co/ FOR POWERING THE POKEDEX!
-
-## Other commands
-
-Other commands may be stored from other users using the !addcommand function, so ask around and see what exists!
+A pokemon's sprite will be returned based on front/back and default/shiny.

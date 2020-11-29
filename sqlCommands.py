@@ -90,6 +90,24 @@ class SqlCommands(commands.Cog):
                 commandContent = cursor.fetchall()
                 #print(str(commandContent[0])[2:-3])
                 await ctx.send(str(commandContent[0])[2:-3])
+                return
+        await ctx.send("Couldn't find that command.")
+
+    #gives a list of all the custom commands
+    @commands.command(name="customList", help=customListHelp, brief = customListHelpShort)
+    async def customList(self, ctx):
+        cursor = execute_query(connection, "select command_name from commands")
+        commandNames = cursor.fetchall()
+        toSend = ""
+        for i in range(len(commandNames)):
+            toSend += commandNames[i][0]
+            if i != len(commandNames) - 1:
+                toSend += ", "
+        embedSend = discord.Embed(
+            title="Custom Commands List",
+            description = toSend
+        )
+        await ctx.send(embed=embedSend)
 
 def setup(bot):
     bot.add_cog(SqlCommands(bot))
