@@ -8,7 +8,7 @@ import json
 import requests
 import datetime
 import traceback
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.ext.commands import Bot
 
 import tokendef
@@ -49,14 +49,20 @@ if __name__ == "__main__":
     for extension in extensionList:
         bot.load_extension(extension)
 
+#background task to change status every 30 seconds. can be changed to do other stuff too
+@tasks.loop(seconds=30)
+async def background_task():
+    #print("Bot Status Change (30 Seconds)")
+    randomIndex = random.randint(1, len(activityList)-1)
+    await bot.change_presence(status = discord.Status.do_not_disturb, activity=activityList[randomIndex])
+
 @bot.event
 async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
     print('------------------')
-    statusText = discord.Game(name = "not yandere sim!")
-    await bot.change_presence(status = discord.Status.do_not_disturb, activity = statusText)
-    print('set status as \"' + statusText.name + "\"\n------------------")
+    background_task.start()
+
 
 bot.run(token) #token is hidden from public repository

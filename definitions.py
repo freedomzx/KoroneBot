@@ -19,6 +19,7 @@ from bs4 import BeautifulSoup
 wordsURL = "https://www.mit.edu/~ecprice/wordlist.10000"
 wordsRequest = requests.get(wordsURL).content.splitlines()
 
+#dictionary of 8ball responses. didnt have to be a dictionary but hwatever
 ballresponses = {
     1: "Uhh, maybe?", 2: "Definitely!", 3: "You probably don't want to know...", 4: "Not happening.",
     5: "Probably not.  Sorry.", 6: "It's likely!", 7: "100%!!!", 8: "Uhh, nope.  Sorry.",
@@ -27,6 +28,7 @@ ballresponses = {
     16: "Yes.", 17: "No.", 18: "The answer will come to you.", 19: "What are you thinking?"
 }
 
+#dictionary of ascii pictures for hangman lives
 hangmanLives = {
     7: "|---------\n|\n|\n|\n|\n|",
     6: "|---------\n|        |\n|\n|\n|\n|",
@@ -38,6 +40,17 @@ hangmanLives = {
     0: "|---------\n|        |\n|        O\n|      / | \\\n|       / \\\n|",
 }
 
+#list of discord statuses for the bot to change to every 30 seconds
+activityList = [
+    discord.Game(name="not yandere sim!"), discord.Activity(type=discord.ActivityType.listening, name="some weeb tunes!"),
+    discord.Activity(type=discord.ActivityType.watching, name="some degenerate stuff!"), discord.Game(name="the system!"),
+    discord.Game(name="Mogeko Castle!"), discord.Activity(type=discord.ActivityType.watching, name="Yakuza Shenanigans!"),
+    discord.Activity(type=discord.ActivityType.listening, name="Baka Mitai!"), discord.Activity(type=discord.ActivityType.listening, name="Polkadot Stingray!"),
+    discord.Game(name="Yakuza 0!"), discord.Game(name="Fire Emblem: Three Houses!"), discord.Game(name="Street Fighter V!"), discord.Game("Half-Life 3!"),
+    discord.Game("Under Night In-Birth EXE:Late[cl-r]!"), discord.Game("Guilty Gear Strive!"), discord.Game("Super Smash Brothers Ultimate!"), discord.Game("Tekken 7!")
+]
+
+#dictioanry of dictionaries containing vtuber channel IDs
 vtuberChannelIDs = {
     "Hololive JP: Gen 0/1": {
         "Tokino Sora": "UCp6993wxpyDPHUpavwDFqgg",
