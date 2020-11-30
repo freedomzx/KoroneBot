@@ -28,6 +28,26 @@ import mysql.connector
 from mysql.connector import Error
 import pandas as pd
 
+def getRandomWord():
+    word = random.choice(wordsRequest)
+    word = word.decode("utf-8")
+    return str(word)
+
+def getGuess(msgContent):
+    guess = msgContent[6:len(msgContent)]
+    return guess
+
+def fillHMSpaces(word):
+    toReturn = []
+    for i in word:
+        if i == " ":
+            toReturn.append(" ")
+        elif i == "-":
+            toReturn.append("-")
+        else:
+            toReturn.append("_")
+    return toReturn
+
 class GeneralCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -106,7 +126,7 @@ class GeneralCommands(commands.Cog):
     @commands.command(name="hangman", help = hangmanHelp, brief = hangmanHelpShort)
     async def hangman(self, ctx):
         await ctx.send("A new game of hangman is starting! To make a guess of a letter or the entire word, send \"guess <guess>\".")
-        word = commandhelpers.getRandomWord().lower()
+        word = getRandomWord().lower()
         length = len(word)
         guessSpaces = fillHMSpaces(word)
 
