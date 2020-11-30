@@ -30,12 +30,12 @@ import pandas as pd
 
 client = discord.Client()
 
-#list of files/cogs to use
 def get_prefix(bot, message):
     prefixes = ['!']
 
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
+#list of files/cogs to use
 extensionList = [
                 'generalCommands',
                 'sqlCommands' ,
@@ -52,7 +52,7 @@ if __name__ == "__main__":
 #background task to change status every 30 seconds. can be changed to do other stuff too
 activityIterator = 0
 
-@tasks.loop(seconds=5)
+@tasks.loop(minutes=1)
 async def background_task():
     global activityIterator
     await bot.change_presence(status = discord.Status.do_not_disturb, activity=activityList[activityIterator])

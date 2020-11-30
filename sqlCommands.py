@@ -93,6 +93,26 @@ class SqlCommands(commands.Cog):
                 return
         await ctx.send("Couldn't find that command.")
 
+    #gives misc info of a command (author, creation date)
+    @commands.command(name="custominfo", help = customInfoHelp, brief = customInfoHelpShort)
+    async def customInfo(self, ctx, arg1):
+        query = "select command_creator, creation_date from commands where command_name = \'{commandName}\'".format(commandName = arg1)
+        try:
+            cursor = execute_query(connection, query)
+            commandInfo = cursor.fetchall()
+            publisher = commandInfo[0][0]
+            dateCreated = commandInfo[0][1].strftime("%m/%d/%Y")
+            
+            embedSend = discord.Embed(
+                title="Information on custom command: !" + arg1
+            )
+            embedSend.add_field(name="Command Creator", value=publisher, inline=False)
+            embedSend.add_field(name="Creation Date", value=dateCreated, inline=False)
+
+            await ctx.send(embed=embedSend)
+        except IndexError:
+            await ctx.send("Couldn't find that command.")
+
     #gives a list of all the custom commands
     @commands.command(name="customList", help=customListHelp, brief = customListHelpShort)
     async def customList(self, ctx):

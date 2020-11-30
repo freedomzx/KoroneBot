@@ -4,7 +4,7 @@ defineHelp = """
     To use this command, send: \"!help <single english word to define>\".  
     The bot will then either define the word, or tell you that it cannot find a definition for the given word.
 """
-defineHelpShort = "\"!define <word\""
+defineHelpShort = "\"!define <word>\""
 
 eightBallHelp = """
     To use this command, send: \"!eightBall <a question>\".
@@ -79,6 +79,13 @@ customHelp = """
 """
 customHelpShort = "\"!custom <custom command name>\""
 
+customInfoHelp = """
+    To use this command, send \"!custominfo <custom command name>\".
+    The bot will check through the SQL database and see if the command exists.
+    If it does, the command's author and creation date will be sent.
+"""
+customInfoHelpShort = "\"!custominfo <custom command name>\""
+
 customListHelp = """
     To use this command, send \"!customList\".
     The bot will give a list of the names of all the custom commands it has.
@@ -120,7 +127,7 @@ pokedexHelp = """
     The bot will then send a GET request to the pokeapi pokemon endpoint.
     If found, a pokemon's abilities, types, sprite, flavor text, and held items will be returned.
 """
-pokedexHelpShort = "\"!pokedex <pokemon nmame>\""
+pokedexHelpShort = "\"!pokedex <pokemon name>\""
 
 pokeitemHelp = """
     To use this command, send \"!pokeitem <item name>\".

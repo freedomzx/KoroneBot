@@ -95,6 +95,14 @@ To use this command, send "!custom <custom command name>".
 
 The bot will then check through the SQL database and see if the command exists, then sends the contents if it does exist.
 
+## !custominfo
+
+To use this command, send "!custominfo <custom command name>".
+
+The bot will check through the SQL database and see if the command exists.
+
+If it does, the command's author and creation date will be sent.
+
 ## !customList
 
 To use this command, send "!customList".
