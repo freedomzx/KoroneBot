@@ -1,9 +1,11 @@
 # KoroneBot
 A discord chatbot with a plethora of features: accesses multiple RESTful/RESTless APIs for a variety of information such as weather, stocks, Pokemon info, and more.
 
+Current APIs powering the functions: Discord's API, PokeAPI, OpenWeatherAPI, Evilinsult.com's API, Youtube's Data API, Googletrans API, Yahoo Finance's API, Wordnik API.
+
 Has a web scraping function that checks whether or not some of my favorite YouTubers are live at the time the command is called.
 
-Features MySQL connectivity to story custom commands from users.
+Features MySQL connectivity to store custom commands from users.
 
 Does all of this asynchronously, so no one is tripping over each other during command calls.
 
