@@ -15,8 +15,6 @@ import tokendef
 from tokendef import *
 import definitions
 from definitions import *
-import commandhelpers
-from commandhelpers import *
 import helpStrings
 from helpStrings import *
 

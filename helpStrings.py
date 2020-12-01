@@ -75,9 +75,23 @@ addcommandHelpShort = "\"!addcommand\", send command title, then send command de
 
 customHelp = """
     To use this command, send \"!custom <custom command name>\".
-    The bot will then check through the SQL database and see if the command exists, then sends the contents if it does exist.
+    The bot will then check through the SQL database and see if the command exists, then sends the contents 
+    if it does exist.
 """
 customHelpShort = "\"!custom <custom command name>\""
+
+customContainsHelp = """
+    To use this command, send \"!customcontains <letter/phrase>\".
+    The bot will then check through the SQL databaes and find the names of any commands whose contents contain the specified word or phrase.
+"""
+customContainsHelpShort = "\"!customcontains <letter/phrase>\""
+
+customEndsWithHelp = """
+    To use this command, send \"!customendswith <letter or phrase>\".
+    The bot will then check the SQL database and retrieve a list of commands whose command names end with 
+    the specified letter/phrase.
+"""
+customEndsWithHelpShort = "\"!customendswith <letter/phrase>\""
 
 customInfoHelp = """
     To use this command, send \"!custominfo <custom command name>\".
@@ -91,6 +105,20 @@ customListHelp = """
     The bot will give a list of the names of all the custom commands it has.
 """
 customListHelpShort = "\"!customList\""
+
+customNameContainsHelp = """
+    To use this command, send \"!customcontains <letter or phrase>\".
+    The bot will then check through the SQL database and retrieve a list of commands whose command names 
+    contain the desired letter or phrase.
+"""
+customNameContainsHelpShort = "\"!customcontains <letter/phrase>\""
+
+customStartsWithHelp = """
+    To use this command, send \"!customstartswith <letter or phrase>\".
+    The bot will then check through the SQL database and retrieve a list of commands whose command names start 
+    the specified letter/phrase.
+"""
+customStartsWithHelpShort = "\"!customstartswith <letter/phrase>\""
 
 #youtubeScrapeCommands
 

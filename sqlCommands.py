@@ -15,8 +15,6 @@ import tokendef
 from tokendef import *
 import definitions
 from definitions import *
-import commandhelpers
-from commandhelpers import *
 import helpStrings
 from helpStrings import *
 
@@ -149,6 +147,41 @@ class SqlCommands(commands.Cog):
                 return
         await ctx.send("Couldn't find that command.")
 
+    #get commands whose contents contain something
+    @commands.command(name="customContains", help = customContainsHelp, brief = customContainsHelpShort)
+    async def customContains(self, ctx, arg1):
+        query = "select * from commands where command_contents like '%{commandCont}%'".format(commandCont = arg1)
+        cursor = execute_query(connection, query)
+        commandNames = cursor.fetchall()
+        toSend = ""
+        print(commandNames)
+        for i in range(len(commandNames)):
+            toSend += commandNames[i][0]
+            if i != len(commandNames) -1:
+                toSend += ", "
+        embedSend = discord.Embed(
+            title="Custom Commands That That Contain: {thing}".format(thing = arg1),
+            description=toSend
+        )
+        await ctx.send(embed=embedSend)
+
+    #gives a list of commands whose command name end with a letter or a string
+    @commands.command(name="customEndsWith", help = customEndsWithHelp, brief = customEndsWithHelpShort)
+    async def customEndsWith(self, ctx, arg1):
+        query = "select command_name from commands where command_name like '%{commandName}'".format(commandName = arg1)
+        cursor = execute_query(connection, query)
+        commandNames = cursor.fetchall()
+        toSend = ""
+        for i in range(len(commandNames)):
+            toSend += commandNames[i][0]
+            if i != len(commandNames) -1:
+                toSend += ", "
+        embedSend = discord.Embed(
+            title="Custom Commands That End With: {thing}".format(thing = arg1),
+            description=toSend
+        )
+        await ctx.send(embed=embedSend)
+
     #gives misc info of a command (author, creation date)
     @commands.command(name="custominfo", help = customInfoHelp, brief = customInfoHelpShort)
     async def customInfo(self, ctx, arg1):
@@ -182,6 +215,40 @@ class SqlCommands(commands.Cog):
         embedSend = discord.Embed(
             title="Custom Commands List",
             description = toSend
+        )
+        await ctx.send(embed=embedSend)
+
+    #gives a list of commands whose command name contain a letter or a string
+    @commands.command(name="customNameContains", help = customNameContainsHelp, brief = customNameContainsHelpShort)
+    async def customNameContains(self, ctx, arg1):
+        query = "select command_name from commands where command_name like '%{commandName}%'".format(commandName = arg1)
+        cursor = execute_query(connection, query)
+        commandNames = cursor.fetchall()
+        toSend = ""
+        for i in range(len(commandNames)):
+            toSend += commandNames[i][0]
+            if i != len(commandNames) -1:
+                toSend += ", "
+        embedSend = discord.Embed(
+            title="Custom Commands That Contain: {thing}".format(thing = arg1),
+            description=toSend
+        )
+        await ctx.send(embed=embedSend)
+
+    #gives a list of the custom commands whose command name start with a certain letter
+    @commands.command(name="customStartsWith")
+    async def customStartsWith(self, ctx, arg1):
+        query = "select command_name from commands where command_name like '{commandName}%'".format(commandName = arg1)
+        cursor = execute_query(connection, query)
+        commandNames = cursor.fetchall()
+        toSend = ""
+        for i in range(len(commandNames)):
+            toSend += commandNames[i][0]
+            if i != len(commandNames) -1:
+                toSend += ", "
+        embedSend = discord.Embed(
+            title="Custom Commands That Start With: {thing}".format(thing = arg1),
+            description=toSend
         )
         await ctx.send(embed=embedSend)
 

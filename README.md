@@ -11,6 +11,8 @@ All of the subsequent explanations for each command can be found by using "!help
 
 The explanations are grouped by the class found in each of their files.
 
+The commands are CASE INSENSITIVE!
+
 # General Commands (generalCommands.py)
 
 ## !define
@@ -95,6 +97,22 @@ To use this command, send "!custom <custom command name>".
 
 The bot will then check through the SQL database and see if the command exists, then sends the contents if it does exist.
 
+## !customContains
+
+To use this command, send \"!customcontains <word or phrase>\".
+
+The bot will then check through the SQL databaes and find the names of any commands whose contents contain the
+
+specified word or phrase.
+
+## !customEndsWith
+
+To use this command, send \"!customendswith <letter or phrase>\".
+
+The bot will then check the SQL database and retrieve a list of commands whose command
+
+names end with the specified letter/phrase.
+
 ## !custominfo
 
 To use this command, send "!custominfo <custom command name>".
@@ -108,6 +126,22 @@ If it does, the command's author and creation date will be sent.
 To use this command, send "!customList".
 
 The bot will give a list of the names of all the custom commands it has.
+
+## !customNameContains
+
+ To use this command, send \"!customcontains <letter or phrase>\".
+
+The bot will then check through the SQL database and retrieve a list of commands whose 
+
+command names contain the desired letter or phrase.
+
+## !customStartsWith
+
+To use this command, send \"!customstartswith <letter or phrase>\".
+
+The bot will then check through the SQL database and retrieve a list of commands
+
+whose command names start the specified letter/phrase.
 
 # Youtube Info Commands (youtubeScrapeCommands.py)
 
