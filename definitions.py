@@ -109,10 +109,16 @@ vtuberChannelIDs = {
         "Amelia Watson": "UCyl1z3jo3XHR1riLFKG5UAg"
     },
 
-    "Hololive ID": {
+    "Hololive ID: Gen 1": {
         "Airani Iofifteen": "UCAoy6rzhSf4ydcYjJw3WoVg",
         "Moona Hoshinova": "UCP0BspO_AMEe3aQqqpo89Dg",
         "Ayunda Risa": "UCOyYb1c43VlX9rc_lT6NKQw"
+    },
+
+    "Hololive ID: Gen 2": {
+        "Kureiji Ollie": "UCYz_5n-uDuChHtLo7My1HnQ",
+        "Anya Melfissa": "UC727SQYUvx5pDDGQpTICNWg",
+        "Pavolia Reine": "UChgTyjG-pdNvxxhdsXfHQ5Q"
     },
 
     "VOMS Project": {
