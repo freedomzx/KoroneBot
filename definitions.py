@@ -13,11 +13,15 @@ import definitions
 from definitions import *
 from PyDictionary import PyDictionary
 from random_word import RandomWords
-from googletrans import Translator
 from bs4 import BeautifulSoup
+from google_trans_new import google_translator
 
 wordsURL = "https://www.mit.edu/~ecprice/wordlist.10000"
 wordsRequest = requests.get(wordsURL).content.splitlines()
+
+r = RandomWords()
+dictionary = PyDictionary()
+translator = google_translator()
 
 #dictionary of 8ball responses. didnt have to be a dictionary but hwatever
 ballresponses = {
@@ -134,7 +138,3 @@ vtuberChannelIDs = {
         "Artemis": "UCWImOidHDmm0KK20bkF-rSQ"
     }
 }
-
-r = RandomWords()
-dictionary = PyDictionary()
-translator = Translator()

@@ -20,7 +20,6 @@ from helpStrings import *
 
 from PyDictionary import PyDictionary
 from random_word import RandomWords
-from googletrans import Translator
 
 import mysql.connector
 from mysql.connector import Error

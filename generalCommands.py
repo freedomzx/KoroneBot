@@ -20,7 +20,6 @@ from helpStrings import *
 
 from PyDictionary import PyDictionary
 from random_word import RandomWords
-from googletrans import Translator
 
 import mysql.connector
 from mysql.connector import Error
@@ -220,7 +219,7 @@ class GeneralCommands(commands.Cog):
             await ctx.send(embed=embedSend)
             await ctx.send("```" + dataframe + "```")
 
-    #translate a sentence into a language
+    #translate a sentence from english into a language
     @commands.command(name="translate", help = translateHelp, brief = translateHelpShort)
     async def translate(self, ctx):
         #regular check, check consistency between author and channel
@@ -230,20 +229,34 @@ class GeneralCommands(commands.Cog):
 
         msg = await self.bot.wait_for("message", check = check)
         sentence = msg.content
+        #print(sentence)
 
         await ctx.send("Please enter the language code to translate to.  (consult https://sites.google.com/site/opti365/translate_codes).")
         msg = await self.bot.wait_for("message", check = check)
         language = msg.content
+        #print(language)
 
-        try:
-            translated = translator.translate(sentence, dest=language)
-            embedSend = discord.Embed(
-                title = "Translation of \"" + sentence + "\" to " + language,
-                description = translated.text
-            )
-            await ctx.send(embed=embedSend)
-        except AttributeError:
-            await ctx.send("Hmm... Something didn't work.  Check your grammar, maybe?  This API fails without proper grammar for whatever reason.")
+        # try:
+        translated = translator.translate(sentence, lang_tgt=language)
+        toSend = ""
+
+        # if only 1 def
+        if isinstance(translated, str):
+            toSend = translated
+        # if multiple defs
+        elif isinstance(translated, list):
+            for i in range(len(translated)):
+                toSend += translated[i]
+                if i != len(translated) -1:
+                    toSend += ', '
+
+        embedSend = discord.Embed(
+            title = "Translation of \"" + sentence + "\" to " + language,
+            description = toSend
+        )
+        await ctx.send(embed=embedSend)
+        # except AttributeError:
+        #     await ctx.send("Hmm... Something didn't work.  Check your grammar, maybe?  This API fails without proper grammar for whatever reason.")
 
      #get the weather of a certain place
     @commands.command(name="weather", help = weatherHelp, brief = weatherHelpShort)
