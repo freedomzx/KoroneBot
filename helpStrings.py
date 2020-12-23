@@ -137,6 +137,12 @@ hangmanHelp = """
 """
 hangmanHelpShort = "\"!hangman\", \"guess <guess>\""
 
+scrabblescoreHelp = """
+    To use this command, send: \"!scrabblescore <single word>\".
+    The bot will then send a get request to Wordnik API and retrieve the word's scrabble score.
+"""
+scrabblescoreHelpShort = "\"!scrabblescore <single word>\""
+
 wordofthedayHelp = """
     To use this command, send \"!wordoftheday\".
     The bot will then give a word of the day and its definition.

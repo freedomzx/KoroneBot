@@ -83,6 +83,12 @@ To guess a letter or the entire word, send "guess <guess>".
 
 The game will proceed until the man is dead or the word is found.  You have 7 lives!
 
+## !scrabblescore
+
+To use this command, send: "!scrabblescore <single word>".
+
+The bot will then send a get request to Wordnik API and retrieve the word's scrabble score.
+
 ## !wordoftheday
 
 To use this command, send "!wordoftheday".

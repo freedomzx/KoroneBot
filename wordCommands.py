@@ -25,6 +25,8 @@ import mysql.connector
 from mysql.connector import Error
 import pandas as pd
 
+#https://developer.wordnik.com/docs#/
+
 def getRandomWord():
     # word = random.choice(wordsRequest)
     # word = word.decode("utf-8")
@@ -128,8 +130,33 @@ class WordCommands(commands.Cog):
                 await ctx.send("Game over!\n```" + hangmanLives[lives] + "```The word was: " + word + ".")
                 break
 
+    #get the scrabble score of a word (lol)
+    @commands.command(name="scrabblescore", help=scrabblescoreHelp, brief=scrabblescoreHelpShort)
+    async def scrabblescore(self, ctx, arg1):
+        url = "https://api.wordnik.com/v4/word.json/"
+        url += arg1
+        url += "/scrabbleScore?api_key=" + wordnikAPIKey
+
+        request = requests.get(url)
+        request = request.json()
+
+        score = ""
+        try:
+           score = request["value"]
+        except KeyError:
+            embedSend = discord.Embed(title="Can't find that word's scrabble score.")
+            await ctx.send(embed=embedSend)
+            return
+
+        embedSend= discord.Embed(
+            title="Scrabble Score for: " + arg1
+        )
+        embedSend.add_field(name="Score", value=request["value"], inline=False)
+
+        await ctx.send(embed=embedSend)
+
     #get a word of the day
-    @commands.command(name="wordoftheday", help = wordofthedayHelp, brief = wordofthedayHelpShort)
+    @commands.command(name="wordoftheday", help=wordofthedayHelp, brief=wordofthedayHelpShort)
     async def wordoftheday(self, ctx):
         url = "https://api.wordnik.com/v4/words.json/wordOfTheDay?api_key=" + wordnikAPIKey
         request = requests.get(url)
