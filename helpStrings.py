@@ -1,24 +1,10 @@
 #generalCommands
 
-defineHelp = """
-    To use this command, send: \"!help <single english word to define>\".  
-    The bot will then either define the word, or tell you that it cannot find a definition for the given word.
-"""
-defineHelpShort = "\"!define <word>\""
-
 eightBallHelp = """
     To use this command, send: \"!eightBall <a question>\".
     The bot will then give you a random response to that question.
 """
 eightBallHelpShort = "\"!eightBall <question>\""
-
-hangmanHelp = """
-    To use this command, send \"!hangman\".
-    The bot will then start a game of hangman, giving the slots for a word and sending an ASCII picture of a hangman board.
-    To guess a letter or the entire word, send \"guess <guess>\".
-    The game will proceed until the man is dead or the word is found.  You have 7 lives!
-"""
-hangmanHelpShort = "\"!hangman\", \"guess <guess>\""
 
 insultHelp = """
     To use this command, send \"!insult\".
@@ -134,6 +120,29 @@ channelinfoHelp = """
     The bot will then send the channel's title, description, publish date, sub count, view count, and video count, if found.
 """
 channelinfoHelpShort = "\"!channelinfo <youtube channel id>\""
+
+#wordCommands
+
+defineHelp = """
+    To use this command, send: \"!help <single english word to define>\".  
+    The bot will then either define the word, or tell you that it cannot find a definition for the given word.
+"""
+defineHelpShort = "\"!define <word>\""
+
+hangmanHelp = """
+    To use this command, send \"!hangman\".
+    The bot will then start a game of hangman, giving the slots for a word and sending an ASCII picture of a hangman board.
+    To guess a letter or the entire word, send \"guess <guess>\".
+    The game will proceed until the man is dead or the word is found.  You have 7 lives!
+"""
+hangmanHelpShort = "\"!hangman\", \"guess <guess>\""
+
+wordofthedayHelp = """
+    To use this command, send \"!wordoftheday\".
+    The bot will then give a word of the day and its definition.
+"""
+wordofthedayHelpShort = "\"!wordoftheday\""
+
 
 #pokedexCommands
 

@@ -17,29 +17,11 @@ The commands are CASE INSENSITIVE!
 
 # General Commands (generalCommands.py)
 
-## !define
-
-To use this command, send: "!help <single english word to define>".  
-
-The bot will then either define the word, or tell you that it cannot find a definition for the given word.
-
-Thank you PyDictionary.
-
 ## !eightBall
 
 To use this command, send: "!eightBall <a question>".
 
 The bot will then give you a random response to that question.
-
-## !hangman
-
-To use this command, send "!hangman".
-
-The bot will then start a game of hangman, giving the slots for a word and sending an ASCII picture of a hangman board.
-
-To guess a letter or the entire word, send "guess <guess>".
-
-The game will proceed until the man is dead or the word is found.  You have 7 lives!
 
 ## !insult
 
@@ -80,6 +62,36 @@ The weather from that area, if found, will then be sent.
 To use this command, send "!whoami".
 
 The bot will then send you your discord account's join date for the current server, discord account creation date, user ID, and username discriminator (the 4 numbers after your username.)
+
+# Word Commands (wordCommands.py)
+
+## !define
+
+To use this command, send: "!help <single english word to define>".  
+
+The bot will then either define the word, or tell you that it cannot find a definition for the given word.
+
+Thank you PyDictionary.
+
+## !hangman
+
+To use this command, send "!hangman".
+
+The bot will then start a game of hangman, giving the slots for a word and sending an ASCII picture of a hangman board.
+
+To guess a letter or the entire word, send "guess <guess>".
+
+The game will proceed until the man is dead or the word is found.  You have 7 lives!
+
+## !wordoftheday
+
+To use this command, send "!wordoftheday".
+
+The bot will then give a word of the day and its definition, from a GET request to the Wordnik API.
+
+Powered by Wordnik API.
+
+
 
 # SQL Commands (sqlCommands.py)
 

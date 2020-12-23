@@ -48,9 +48,8 @@ hangmanLives = {
 activityList = [
     discord.Game(name="not yandere sim!"), discord.Activity(type=discord.ActivityType.listening, name="some weeb tunes!"),
     discord.Activity(type=discord.ActivityType.watching, name="some degenerate stuff!"), discord.Game(name="the system!"),
-    discord.Game(name="Mogeko Castle!"), discord.Activity(type=discord.ActivityType.watching, name="Yakuza Shenanigans!"),
-    discord.Activity(type=discord.ActivityType.listening, name="Baka Mitai!"), discord.Activity(type=discord.ActivityType.listening, name="Polkadot Stingray!"),
-    discord.Game(name="Yakuza 0!"), discord.Game(name="Fire Emblem: Three Houses!"), discord.Game(name="Fighting Games!"), discord.Game("Half-Life 3!"),
+    discord.Game(name="Mogeko Castle!"), discord.Activity(type=discord.ActivityType.listening, name="Baka Mitai!"), discord.Activity(type=discord.ActivityType.listening, name="Polkadot Stingray!"),
+    discord.Activity(type=discord.ActivityType.listening, name="One Winged Angel!"), 
 ]
 
 #dictioanry of dictionaries containing vtuber channel IDs

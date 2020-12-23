@@ -25,26 +25,6 @@ import mysql.connector
 from mysql.connector import Error
 import pandas as pd
 
-def getRandomWord():
-    word = random.choice(wordsRequest)
-    word = word.decode("utf-8")
-    return str(word)
-
-def getGuess(msgContent):
-    guess = msgContent[6:len(msgContent)]
-    return guess
-
-def fillHMSpaces(word):
-    toReturn = []
-    for i in word:
-        if i == " ":
-            toReturn.append(" ")
-        elif i == "-":
-            toReturn.append("-")
-        else:
-            toReturn.append("_")
-    return toReturn
-
 class GeneralCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -77,30 +57,6 @@ class GeneralCommands(commands.Cog):
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
-    #defines a single word
-    @commands.command(name="define", help=defineHelp, brief = defineHelpShort)
-    async def define(self, ctx, arg1):
-        definition = dictionary.meaning(arg1)
-        message = ""
-        if definition is None:
-            await ctx.send("Hmm... Can't seem to find that word.  Did you misspell or give me too many words?")
-        else:
-            toSend = ""
-            for i in definition:
-                toSend += "***" + i + ":***  "
-                for j in range(len(definition[i])):
-                    toSend += definition[i][j] + ", "
-                toSend = toSend[:-2]
-                toSend += "\n"
-
-            embedSend = discord.Embed(
-                title="Definitions of: " + arg1,
-                description=toSend
-            )
-
-            await ctx.send(embed=embedSend)
-        #there was a bs4 error here, if it happens again go edit C:\Users\<me>\AppData\Local\Programs\Python\Python38-32\lib\site-packages\PyDictionary\utils.py
-
     #randomly responds to a question given a short list of answers
     @commands.command(name="eightBall", help = eightBallHelp, brief = eightBallHelpShort)
     async def eightBall(self, ctx, *args):
@@ -118,56 +74,6 @@ class GeneralCommands(commands.Cog):
             )
             embedSend.set_thumbnail(url="https://magic-8ball.com/assets/images/magicBallStart.png")
             await ctx.send(embed=embedSend)
-
-    #a game of hangman
-    @commands.command(name="hangman", help = hangmanHelp, brief = hangmanHelpShort)
-    async def hangman(self, ctx):
-        await ctx.send("A new game of hangman is starting! To make a guess of a letter or the entire word, send \"guess <guess>\".")
-        word = getRandomWord().lower()
-        length = len(word)
-        guessSpaces = fillHMSpaces(word)
-
-        def hangmanCheck(message):
-            if message.content.startswith("guess ") == False or len(message.content) <= 6:
-                return False
-            else:
-                return True
-
-        lives = 7
-        print(word)
-
-        while(True):
-            toSend = "```" + hangmanLives[lives] + "\n"
-            for i in guessSpaces:
-                toSend += i + " "
-            toSend += "```"
-            await ctx.send(toSend)
-
-            msg = await self.bot.wait_for("message", check = hangmanCheck)
-            guess = getGuess(msg.content).lower()
-
-            if guess == word:
-                await ctx.send("You got it!  The word was: " + word + ".")
-                break
-            elif len(guess) == 1 and guess in word:
-                await ctx.send("That's part of it!")
-                #find all indices of the letter in word and replace it
-                i = 0
-                while i < len(word):
-                    if word[i] == guess:
-                        guessSpaces[i] = guess
-                    i += 1
-                #break if winning guess
-                if "_" not in guessSpaces:
-                    await ctx.send("You win!  The word was: " + word + ".")
-                    break
-            else:
-                await ctx.send("Bad guess.")
-                lives -= 1
-            
-            if lives == 0:
-                await ctx.send("Game over!\n```" + hangmanLives[lives] + "```The word was: " + word + ".")
-                break
 
     #get insulted!
     @commands.command(name="insult", help = insultHelp, brief = insultHelpShort)
