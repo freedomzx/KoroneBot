@@ -121,6 +121,14 @@ channelinfoHelp = """
 """
 channelinfoHelpShort = "\"!channelinfo <youtube channel id>\""
 
+#nasaCommands
+
+apodHelp = """
+    To use this command, send \"!apod\".
+    The bot will send a request to https://api.nasa.gov/, and retrieve an astronomy picture of the day and its details.
+"""
+apodHelpShort = "\"!apod\""
+
 #wordCommands
 
 defineHelp = """

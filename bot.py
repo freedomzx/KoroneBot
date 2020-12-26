@@ -38,7 +38,8 @@ extensionList = [
                 'sqlCommands' ,
                 'pokedexCommands',
                 'youtubeScrapeCommands',
-                'wordCommands'
+                'wordCommands',
+                'nasaCommands'
                 ]
 
 bot = commands.Bot(command_prefix='!', case_insensitive=True)

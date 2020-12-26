@@ -179,6 +179,8 @@ To use this command, send "!channelinfo <youtube channel id>".
 
 The bot will then send the channel's title, description, publish date, sub count, view count, and video count, if found.
 
+# NASA Commands (nasaCommands.py)
+
 # Pokedex Commands (pokedexCommands.py)
 
 ## !pokeability
