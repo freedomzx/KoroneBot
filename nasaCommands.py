@@ -42,7 +42,12 @@ class NasaCommands(commands.Cog):
         )
         embedSend.add_field(name="Title", value=request["title"], inline=False)
         embedSend.add_field(name="Date", value=request["date"], inline=False)
-        embedSend.add_field(name="Explanation", value=request["explanation"], inline=False)
+
+        explanation = request["explanation"]
+        if len(explanation) > 925:
+            explanation = explanation[0:925]
+            explanation += "... (truncated, see the rest at https://apod.nasa.gov/apod/astropix.html)"
+        embedSend.add_field(name="Explanation", value=explanation, inline=False)
         embedSend.add_field(name="Copyright", value=request["copyright"], inline=False)
         embedSend.set_thumbnail(url=request["url"])
 
