@@ -48,7 +48,7 @@ class NasaCommands(commands.Cog):
             explanation = explanation[0:925]
             explanation += "... (truncated, see the rest at https://apod.nasa.gov/apod/astropix.html)"
         embedSend.add_field(name="Explanation", value=explanation, inline=False)
-        embedSend.add_field(name="Copyright", value=request["copyright"], inline=False)
+        
         embedSend.set_thumbnail(url=request["url"])
 
         await ctx.send(embed=embedSend)

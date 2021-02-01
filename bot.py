@@ -28,7 +28,7 @@ import pandas as pd
 client = discord.Client()
 
 def get_prefix(bot, message):
-    prefixes = ['!']
+    prefixes = ['k!']
 
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
@@ -42,7 +42,7 @@ extensionList = [
                 'nasaCommands'
                 ]
 
-bot = commands.Bot(command_prefix='!', case_insensitive=True)
+bot = commands.Bot(command_prefix='k!', case_insensitive=True)
 
 if __name__ == "__main__":
     for extension in extensionList:
