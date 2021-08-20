@@ -104,12 +104,20 @@ vtuberChannelIDs = {
         "Omaru Polka": "UCK9V2B22uJYu3N7eR_BT9QA"
     },
 
-    "Hololive EN": {
+    "Hololive EN: Gen 1": {
         "Gawr Gura": "UCoSrY_IQQVpmIRZ9Xf-y93g",
         "Mori Calliope": "UCL_qhgtOy0dy1Agp8vkySQg",
         "Ninomae Ina'nis": "UCMwGHR0BTZuLsmjY_NT5Pwg",
         "Takanashi Kiara": "UCHsx4Hqa-1ORjQTh9TYDhww",
         "Amelia Watson": "UCyl1z3jo3XHR1riLFKG5UAg"
+    },
+
+    "Hololive EN: Gen 2" {
+        "Ceres Fauna": "UCO_aKKYxn4tvrqPjcTzZ6EQ",
+        "Tsukumo Sana": "UCsUj0dszADCGbF3gNrQEuSQ",
+        "Ouro Kronii": "UCmbs8T6MWqUHP1tIQvSgKrg",
+        "Nanashi Mumei": "UC3n5uGu18FoCy23ggWWp8tA",
+        "Hakos Baelz": "UCgmPnx-EEeOrZSg5Tiw7ZRQ"
     },
 
     "Hololive ID: Gen 1": {

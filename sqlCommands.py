@@ -95,7 +95,7 @@ class SqlCommands(commands.Cog):
         def check(message):
             return message.channel == ctx.message.channel and message.author == ctx.message.author
         #get title of command
-        await ctx.send("What do you want the name of the command to be? (Don't include the ! prefix, and no spaces allowed.)")
+        await ctx.send("What do you want the name of the command to be? (Don't include the k! prefix, and no spaces allowed.)")
         msg = await self.bot.wait_for('message', check=check)
         commandName = ""
         if " " not in msg.content:
@@ -126,7 +126,7 @@ class SqlCommands(commands.Cog):
         cursor = execute_query(connection, toQuery)
         embedSend = discord.Embed(
             title="Command added if not already in existence.",
-            description="To use the command, do \"!custom <commandName>\"."
+            description="To use the command, do \"k!custom <commandName>\"."
         )
         await ctx.send(embed=embedSend)
 

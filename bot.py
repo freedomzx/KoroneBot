@@ -39,7 +39,8 @@ extensionList = [
                 'pokedexCommands',
                 'youtubeScrapeCommands',
                 'wordCommands',
-                'nasaCommands'
+                'nasaCommands',
+                'cleaningCommands'
                 ]
 
 bot = commands.Bot(command_prefix='k!', case_insensitive=True)
